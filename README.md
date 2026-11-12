@@ -1,8 +1,24 @@
 # Nisarworks
 
-The Nisarworks website: one page listing the apps, each with a download button.
+The website at nisarworks.com: a home for the software Nisar Ahmad builds.
 
-- `public/` holds the site (`index.html` and `assets/`).
-- `firebase.json` tells Firebase Hosting to serve `public/`.
+## How it is put together
 
-Deploy with `firebase deploy --only hosting`.
+- `content/products.mjs` holds every product: name, tagline, status, links, screenshots and the sections of its page.
+- `content/site.mjs` holds the site-wide words and links.
+- `media/<product>/` holds the images. Screenshots are `.webp`.
+- `src/` holds the page templates (`build.mjs`), the styles and a small script.
+- `public/` is the built site. It is generated; do not edit it by hand.
+
+## Add or change a product
+
+1. Edit its entry in `content/products.mjs`, or copy an entry to add a new one.
+2. Put its images in `media/<slug>/` and name them in the entry.
+3. Run `node src/build.mjs`. It needs Node 18 or newer and nothing else.
+
+## Publish
+
+```
+node src/build.mjs
+firebase deploy --only hosting
+```
