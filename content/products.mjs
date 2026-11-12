@@ -39,6 +39,7 @@ export const products = [
           { src: 'netmerge/connections-dark.webp', w: 1440, h: 900, alt: 'NetMerge connections page with three ways for lines to work together.', caption: 'Connections. Choose how your lines work together.' },
           { src: 'netmerge/usage-dark.webp', w: 1440, h: 1100, alt: 'NetMerge usage page with data per line and a daily bar chart.', caption: 'Usage. Data per line, an allowance forecast and 31 days of daily use.' },
           { src: 'netmerge/apps-light.webp', w: 1440, h: 900, alt: 'NetMerge apps page listing programs and the connection each one uses.', caption: 'Apps. See which line each program uses, and change it.' },
+          { src: 'netmerge/sharing-light.webp', w: 1440, h: 1068, alt: 'NetMerge sharing page with steps and a QR code to connect a phone.', caption: 'Sharing. Scan the code and your phone uses the merged connection too.' },
           { src: 'netmerge/presets-light.webp', w: 1440, h: 1116, alt: 'NetMerge presets page with one-click setups and a schedule.', caption: 'Presets. Work from home, gaming, travel and your own, with a schedule.' },
           { src: 'netmerge/blocking-light.webp', w: 1440, h: 1103, alt: 'NetMerge blocking page with block lists and the sites blocked today.', caption: 'Blocking. Block lists, the sites blocked today, and your own lists.' },
         ] },
