@@ -18,11 +18,11 @@ export const products = [
     status: { kind: 'released', label: 'Released' },
     version: '3.17.5',
     repo: 'netmerge',
-    accent: '#35d6b9',
-    accent2: '#f2a93b',
+    accent: '#7396ff',
+    accent2: '#f2c14e',
     featured: true,
     mark: '<path d="M11 15C20 15 20 24 26 24M11 33C20 33 20 24 26 24H37"/><path d="M33 20l4.5 4-4.5 4"/><circle cx="11" cy="15" r="2.6" fill="currentColor" stroke="none"/><circle cx="11" cy="33" r="2.6" fill="currentColor" stroke="none"/>',
-    cover: { src: 'netmerge/overview-dark.webp', w: 1440, h: 900, alt: 'NetMerge overview: a LAN line and a Wi-Fi line with live speed graphs and a combined download figure.' },
+    cover: { src: 'netmerge/overview-cover.webp', w: 1440, h: 900, alt: 'NetMerge overview in dark mode: two lines merged, a combined speed gauge and live traffic.' },
     hero: 'wide',
     actions: [
       { label: 'Download for Windows', href: gh + 'netmerge/releases/latest', kind: 'download' },
@@ -34,12 +34,13 @@ export const products = [
           'Plenty of homes have a cable line and a second way online: Wi-Fi from another provider, or a phone hotspot. Windows picks one and ignores the rest.',
           'NetMerge hands every new connection your programs open to whichever line has the most room right now. Browsers, download managers and game launchers open many connections, so they end up drawing on all your lines together.',
         ] },
-      { type: 'gallery', title: 'A look inside', note: 'Screenshots from the current version.', items: [
-          { src: 'netmerge/overview-full.webp', w: 1440, h: 1368, alt: 'NetMerge overview in dark mode with a combined speed graph and one card per connection.', caption: 'Overview. Live speed of every line, and how the work is shared between them.' },
-          { src: 'netmerge/usage-light.webp', w: 1440, h: 1000, alt: 'NetMerge usage page with data used per connection per day and a monthly allowance form.', caption: 'Usage. Data per line per day, with a monthly allowance and a forecast.' },
-          { src: 'netmerge/apps-light.webp', w: 1440, h: 1000, alt: 'NetMerge apps page listing programs and the line each one uses.', caption: 'Apps. Send a program to one line, or keep it off the merge.' },
-          { src: 'netmerge/share-light.webp', w: 1440, h: 1000, alt: 'NetMerge share page with a QR code for a phone.', caption: 'Share. Scan a code and your phone uses the merged connection too.' },
-          { src: 'netmerge/presets-light.webp', w: 1440, h: 1000, alt: 'NetMerge presets page with one-click setups.', caption: 'Presets. Gaming, work, travel and your own, with a schedule.' },
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots of the current version.', items: [
+          { src: 'netmerge/overview-dark.webp', w: 1440, h: 1240, alt: 'NetMerge overview in dark mode with a combined speed gauge and a card per connection.', caption: 'Overview. Both lines merged, the combined speed gauge and live traffic.' },
+          { src: 'netmerge/connections-dark.webp', w: 1440, h: 900, alt: 'NetMerge connections page with three ways for lines to work together.', caption: 'Connections. Choose how your lines work together.' },
+          { src: 'netmerge/usage-dark.webp', w: 1440, h: 1100, alt: 'NetMerge usage page with data per line and a daily bar chart.', caption: 'Usage. Data per line, an allowance forecast and 31 days of daily use.' },
+          { src: 'netmerge/apps-light.webp', w: 1440, h: 900, alt: 'NetMerge apps page listing programs and the connection each one uses.', caption: 'Apps. See which line each program uses, and change it.' },
+          { src: 'netmerge/presets-light.webp', w: 1440, h: 1116, alt: 'NetMerge presets page with one-click setups and a schedule.', caption: 'Presets. Work from home, gaming, travel and your own, with a schedule.' },
+          { src: 'netmerge/blocking-light.webp', w: 1440, h: 1103, alt: 'NetMerge blocking page with block lists and the sites blocked today.', caption: 'Blocking. Block lists, the sites blocked today, and your own lists.' },
         ] },
       { type: 'features', layout: 'grid', title: 'What it does', items: [
           { title: 'Three ways to merge', text: 'Send each connection to the fastest line, keep each website on one line, or use one line with the others as backup.' },
@@ -78,11 +79,11 @@ export const products = [
     status: { kind: 'early', label: 'Early releases' },
     version: '0.10.0',
     repo: 'pullwell',
-    accent: '#4fd0a0',
+    accent: '#35d2bd',
     accent2: '#d9f27a',
     featured: true,
     mark: '<path d="M24 11v17M17 21.5l7 7 7-7"/><path d="M13 28v6h22v-6"/>',
-    cover: { src: 'pullwell/desktop-dark.webp', w: 1280, h: 800, alt: 'Pullwell main window in dark mode with a list of sample downloads.' },
+    cover: { src: 'pullwell/main-dark.webp', w: 1280, h: 720, alt: 'Pullwell main window in dark mode with a list of downloads, one in progress.' },
     hero: 'split',
     actions: [
       { label: 'Download for Windows', href: gh + 'pullwell/releases/latest', kind: 'download' },
@@ -102,12 +103,12 @@ export const products = [
           { title: 'One file, no installer', text: 'No administrator prompt. It updates itself, checks each update against its fingerprint, and can go back to the previous version.' },
           { title: 'Nothing phones home', text: 'No telemetry. Settings and the download list sit in a folder next to the program.' },
         ] },
-      { type: 'gallery', title: 'A look inside', note: 'The previews use sample downloads.', items: [
-          { src: 'pullwell/desktop-light.webp', w: 1280, h: 800, alt: 'Pullwell main window in light mode.', caption: 'The main window: categories, queues and a sortable list.' },
-          { src: 'pullwell/progress-light.webp', w: 1280, h: 800, alt: 'Pullwell progress view for one download.', caption: 'One download up close: speed, time left, connections and the parts of the file.' },
-          { src: 'pullwell/options-light.webp', w: 1280, h: 800, alt: 'Pullwell options window.', caption: 'Options.' },
-          { src: 'pullwell/popout-dark.webp', w: 640, h: 640, alt: 'A small separate progress window in dark mode.', caption: 'Progress in its own window. Closing it leaves the download running.' },
-          { src: 'pullwell/extension-light.webp', w: 350, h: 596, alt: 'The Pullwell browser extension popup.', caption: 'The browser extension.' },
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots of version 0.10.0.', items: [
+          { src: 'pullwell/main-light.webp', w: 1280, h: 720, alt: 'Pullwell main window in light mode.', caption: 'The main window: navigation, live transfers and the list of downloads.' },
+          { src: 'pullwell/progress.webp', w: 1280, h: 720, alt: 'Pullwell progress view for one download.', caption: 'One download up close: speed, time left, connections and the parts of the file.' },
+          { src: 'pullwell/options.webp', w: 1280, h: 720, alt: 'Pullwell options window.', caption: 'Options.' },
+          { src: 'pullwell/menu.webp', w: 1280, h: 720, alt: 'Pullwell with the View menu open.', caption: 'A menu bar, for people who like menus.' },
+          { src: 'pullwell/main-dark.webp', w: 1280, h: 720, alt: 'Pullwell main window in dark mode.', caption: 'Dark mode.' },
         ] },
       { type: 'limits', title: 'Honest limits', items: [
           '"Pullwell" is a working name and may change after a trademark check.',
@@ -132,11 +133,11 @@ export const products = [
     platformNote: 'Any modern browser',
     status: { kind: 'live', label: 'Live' },
     repo: 'AI_CV_Studio_Redesign',
-    accent: '#7fb0ff',
-    accent2: '#ffd27a',
+    accent: '#ecdcb8',
+    accent2: '#58b596',
     featured: true,
     mark: '<path d="M14 9h14l6 6v24H14z"/><circle cx="24" cy="21" r="3.2"/><path d="M18.5 32c0-5 11-5 11 0"/>',
-    cover: { wall: ['atelier', 'vivid', 'clarity', 'meridian'] },
+    cover: { src: 'ai-cv-studio/home.webp', w: 1440, h: 900, alt: 'AI CV Studio home page with an upload box and the line: Upload your CV, see it transformed.' },
     hero: 'split',
     actions: [
       { label: 'Open aicvstudio.app', href: 'https://aicvstudio.app', kind: 'open' },
@@ -147,6 +148,14 @@ export const products = [
         body: [
           'Most people have a CV somewhere: a PDF from years ago, a Word file, sometimes only a printout. Starting again from a blank template is the part nobody enjoys.',
           'AI CV Studio takes what you already have, including a photo of a paper CV, or asks a few plain questions if you have nothing. You pick a look, adjust it, and download a PDF.',
+        ] },
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots of the live site, with sample people.', items: [
+          { src: 'ai-cv-studio/makeover-result.webp', w: 1440, h: 900, alt: 'A new CV shown next to a row of designs chosen for the person.', caption: 'Upload a CV and see it in designs chosen for your kind of work.' },
+          { src: 'ai-cv-studio/editor.webp', w: 1440, h: 900, alt: 'The CV editor with a form on the left and the page on the right.', caption: 'The editor. Change any line and watch the page update.' },
+          { src: 'ai-cv-studio/design-studio.webp', w: 1440, h: 900, alt: 'Design controls for columns, colours and headings next to the CV.', caption: 'Design controls: columns, colours, headings and spacing.' },
+          { src: 'ai-cv-studio/design-gallery.webp', w: 1440, h: 900, alt: 'A gallery of CV designs with example professions.', caption: 'The design gallery, with examples by profession.' },
+          { src: 'ai-cv-studio/download-health-check.webp', w: 1440, h: 900, alt: 'A final check of the CV before download.', caption: 'A last check before you download.' },
+          { src: 'ai-cv-studio/mobile-home.webp', w: 540, h: 779, alt: 'AI CV Studio on a phone.', caption: 'It works on a phone too.' },
         ] },
       { type: 'wall', title: 'Designs to start from', note: 'Template previews with sample data.', items: [
           ['atelier', 'Atelier'], ['vivid', 'Vivid'], ['clarity', 'Clarity'], ['meridian', 'Meridian'],
@@ -160,8 +169,12 @@ export const products = [
           { title: 'Readable by hiring software', text: 'The designs keep real text in the PDF, so applicant tracking systems can read it.' },
           { title: 'Saved where you are', text: 'Drafts stay in your browser, with a backup file you can download.' },
         ] },
+      { type: 'limits', title: 'Good to know', items: [
+          'You can see your new CV without signing in. Downloading the PDF needs a free account.',
+          'A paid Premium plan is planned and is not open yet.',
+        ] },
       { type: 'compat', title: 'What you need', rows: [
-          ['Runs on', 'Any modern browser'],
+          ['Runs on', 'Any modern browser, on a computer or a phone'],
           ['Install', 'Nothing to install'],
           ['Address', 'aicvstudio.app'],
         ] },
@@ -177,13 +190,13 @@ export const products = [
     platforms: ['Windows'],
     platformNote: 'Windows',
     status: { kind: 'beta', label: 'Beta' },
-    version: '0.2.0-beta.8',
+    version: '0.2.0-beta.9',
     repo: 'ClearWrite',
     prerelease: true,
-    accent: '#a5b4ff',
+    accent: '#5fd79f',
     accent2: '#ff9d9d',
     mark: '<path d="M12 15h20M12 22h15M12 29h8"/><path d="M24 31l4.5 4.5L37 26"/>',
-    cover: { art: 'clearwrite' },
+    cover: { src: 'clearwrite/home-dark.webp', w: 1280, h: 860, alt: 'ClearWrite home in dark mode with mistakes fixed today and a 30-day chart.' },
     hero: 'split',
     actions: [
       { label: 'Download the beta', href: gh + 'ClearWrite/releases', kind: 'download' },
@@ -194,6 +207,13 @@ export const products = [
         body: [
           'Most writing assistants send what you type to a server. That is a lot of trust for a spelling check.',
           'ClearWrite does the checking on your own computer by default. It needs no account, no key and no connection. Help from an AI service is there if you decide to switch it on, and only then.',
+        ] },
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots of the current beta.', items: [
+          { src: 'clearwrite/panel-light.webp', w: 380, h: 560, alt: 'ClearWrite side panel showing a sentence with two suggested fixes.', caption: 'The panel: your text, the fix, and a reason for each change.' },
+          { src: 'clearwrite/home-dark.webp', w: 1280, h: 860, alt: 'ClearWrite home page in dark mode.', caption: 'Home. What was fixed today and over the last 30 days.' },
+          { src: 'clearwrite/suggestion-card-light.webp', w: 300, h: 165, alt: 'A small card under a misspelled word offering the correct spelling.', caption: 'The card under a misspelled word.' },
+          { src: 'clearwrite/history-dark.webp', w: 1280, h: 860, alt: 'ClearWrite history page listing corrections by day.', caption: 'History. Every correction by day, kept only on your PC.' },
+          { src: 'clearwrite/settings-general-light.webp', w: 1280, h: 860, alt: 'ClearWrite settings, General tab.', caption: 'Settings. Underlines in the text, or a side panel.' },
         ] },
       { type: 'modes', title: 'Two modes, and you choose', left: {
           name: 'Offline only', tag: 'The default',
@@ -234,10 +254,10 @@ export const products = [
     status: { kind: 'early', label: 'Early releases' },
     version: '0.4.3',
     repo: 'Vox',
-    accent: '#ff9472',
-    accent2: '#ffd36e',
+    accent: '#a08fff',
+    accent2: '#f5a742',
     mark: '<rect x="19" y="9" width="10" height="18" rx="5"/><path d="M13 23a11 11 0 0 0 22 0M24 34v5"/>',
-    cover: { art: 'vox' },
+    cover: { src: 'vox/talk.webp', w: 1440, h: 1073, alt: 'The Vox Talk screen listing spoken commands, what Vox did and how long each took.' },
     hero: 'split',
     actions: [
       { label: 'Download for Windows', href: gh + 'Vox/releases/latest', kind: 'download' },
@@ -255,6 +275,11 @@ export const products = [
         body: [
           'Say "Hi Vox", or press Ctrl+Alt+Space, and ask in your own words. Vox hears the whole request, does every part of it, and answers briefly.',
           'It asks before deleting, shutting down, reorganising a folder or running PowerShell. Files are moved, never overwritten, and "Undo that" puts them back.',
+        ] },
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots of version 0.4.3.', items: [
+          { src: 'vox/talk.webp', w: 1440, h: 1073, alt: 'The Vox Talk screen.', caption: 'Talk. What you said, what Vox did, and how long each part took.' },
+          { src: 'vox/learned.webp', w: 1440, h: 1073, alt: 'The Vox Learned screen listing remembered commands.', caption: 'Learned. Commands Vox can now do without the AI.' },
+          { src: 'vox/settings.webp', w: 1440, h: 1073, alt: 'The Vox settings screen with AI model and hearing options.', caption: 'Settings. Your AI model, and how Vox hears you.' },
         ] },
       { type: 'routes', title: 'Why it is fast, and gets faster', note: 'Vox tries the cheapest route first, and shows which one each command took.', items: [
           { name: 'Instant', when: 'Everyday commands: open a program or a site, search, volume, media, lock, screenshot, undo.', cost: 'No AI request' },

@@ -144,7 +144,7 @@ const sec = {
     <div class="g-nav" hidden><button type="button" class="g-prev" aria-label="Previous screenshot">${arrow}</button><button type="button" class="g-next" aria-label="Next screenshot">${arrow}</button></div>
   </div>
   <div class="g-track" tabindex="0">
-    ${s.items.map((it) => `<div class="g-item${it.w < 700 ? ' g-small' : ''}">${frame(it, { title: p.name })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
+    ${s.items.map((it) => `<div class="g-item${it.w < 700 ? (it.w < 320 ? ' g-tiny' : ' g-small') : ''}">${frame(it, { title: p.name })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
   </div>
   ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
 </section>`,
@@ -268,7 +268,7 @@ const rest = products.filter((p) => !p.featured);
 const byslug = Object.fromEntries(products.map((p) => [p.slug, p]));
 
 const home = () => page({
-  title: `${site.name} · Software by ${site.creator}`, desc: site.description, path: '/', image: 'netmerge/overview-dark.webp',
+  title: `${site.name} · Software by ${site.creator}`, desc: site.description, path: '/', image: 'netmerge/overview-cover.webp',
   body: `
 <section class="hero">
   <div class="hero-text">
