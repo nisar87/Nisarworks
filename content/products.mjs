@@ -84,7 +84,7 @@ export const products = [
     accent: '#8ab4ff',
     accent2: '#5fd4c4',
     mark: '<rect x="14" y="8" width="20" height="32" rx="4"/><path d="M19 19c4 0 4 5 7 5M19 29c4 0 4-5 7-5h3"/>',
-    cover: { art: 'nma' },
+    cover: { phones: ['home-merging', 'home-networks-dark', 'speed-test'], alt: 'NetMerge for Android on a phone: the combined speed gauge, live speed per network, and the speed test.' },
     hero: 'split',
     actions: [
       { label: 'Get a test build', href: gh + 'netmerge-android/releases/tag/test-build', kind: 'download' },
@@ -96,6 +96,15 @@ export const products = [
           'When Wi-Fi is connected, Android leaves mobile data idle, even when the Wi-Fi is slow or about to drop.',
           'NetMerge for Android runs a VPN on the phone itself that sees every app\'s traffic. Each new connection goes out over Wi-Fi or mobile data, and the faster network gets more of them. Nothing is sent through a server of mine.',
         ] },
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots from a Galaxy S26 Ultra.', items: [
+          { src: 'netmerge-android/home-merging.webp', w: 540, h: 1070, phone: true, alt: 'Home screen with merging on and a combined speed gauge reading 98 Mbps.', caption: 'Merging on. One gauge for the combined speed.' },
+          { src: 'netmerge-android/home-networks.webp', w: 540, h: 1070, phone: true, alt: 'Home screen showing live speed and share of traffic for Wi-Fi and mobile data.', caption: 'Your networks. Live speed and share of traffic for each.' },
+          { src: 'netmerge-android/speed-test.webp', w: 540, h: 1070, phone: true, alt: 'Speed test screen in dark mode with a result per network.', caption: 'Speed test. Wi-Fi alone, mobile data alone, then both together.' },
+          { src: 'netmerge-android/blocking-dark.webp', w: 540, h: 1070, phone: true, alt: 'Ad blocking screen with block lists and switches.', caption: 'Ad blocking for every app, while NetMerge is on.' },
+          { src: 'netmerge-android/settings.webp', w: 540, h: 1070, phone: true, alt: 'Settings screen with mobile data and battery options.', caption: 'Settings. Mobile data limits and a battery guard.' },
+          { src: 'netmerge-android/home-off.webp', w: 540, h: 1070, phone: true, alt: 'Home screen with merging off and a Start merging button.', caption: 'Merging off. One button to start.' },
+          { src: 'netmerge-android/home-networks-dark.webp', w: 540, h: 1070, phone: true, alt: 'Your networks in dark mode.', caption: 'Dark mode.' },
+        ] },
       { type: 'figures', title: 'What I measured', note: 'Three rounds on a Galaxy S26 Ultra with home Wi-Fi and 4G: one 140 MB file over 16 connections. Single runs vary, and your networks will differ.', items: [
           { value: '61.7', unit: 'Mbps', label: 'Merging off, Wi-Fi alone' },
           { value: '85.2', unit: 'Mbps', label: 'Merging on, Wi-Fi and mobile data' },
@@ -106,8 +115,10 @@ export const products = [
           { title: 'Survives a dropout', text: 'When a network leaves, its connections are closed at once so apps reconnect on the one that still works. In tests a download stalled for under 3 seconds.' },
           { title: 'Mobile data only when it helps', text: 'An optional setting lets mobile data go after a quiet minute and brings it back for big downloads.' },
           { title: 'A daily limit', text: 'Set how much mobile data merging may use each day.' },
-          { title: 'Live speed per network', text: 'The main screen shows what Wi-Fi and mobile data are each carrying.' },
-          { title: 'A quick settings tile', text: 'Switch merging on and off from the notification shade.' },
+          { title: 'A built-in speed test', text: 'It tests Wi-Fi alone, mobile data alone, then both together, so you can see the merged speed for yourself.' },
+          { title: 'Ads and trackers blocked', text: 'Optional block lists stop ads, trackers and harmful sites for every app while NetMerge is on.' },
+          { title: 'A battery guard', text: 'Merging can pause when the battery is low. Apps keep using the phone\'s normal network.' },
+          { title: 'Leave apps out', text: 'Pick apps that should not go through the merge.' },
         ] },
       { type: 'limits', title: 'Honest limits', items: [
           'These are test builds, made for trying on a real phone. They are not a release and not meant for daily use yet.',

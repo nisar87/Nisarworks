@@ -68,6 +68,7 @@ const wall = (names, cls = '') => `
 const cover = (p, opts = {}) => {
   if (p.cover.src) return frame(p.cover, { title: p.name, ...opts });
   if (p.cover.wall) return wall(p.cover.wall, 'wall-cover');
+  if (p.cover.phones) return `<div class="phones" role="img" aria-label="${esc(p.cover.alt)}">${p.cover.phones.map((n) => `<img src="${media(`${p.slug}/${n}.webp`)}" width="540" height="1070" alt="" loading="lazy">`).join('')}</div>`;
   return art[p.cover.art];
 };
 
@@ -159,7 +160,7 @@ const sec = {
     <div class="g-nav" hidden><button type="button" class="g-prev" aria-label="Previous screenshot">${arrow}</button><button type="button" class="g-next" aria-label="Next screenshot">${arrow}</button></div>
   </div>
   <div class="g-track" tabindex="0">
-    ${s.items.map((it) => `<div class="g-item${it.w < 700 ? (it.w < 320 ? ' g-tiny' : ' g-small') : ''}">${frame(it, { title: p.name })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
+    ${s.items.map((it) => `<div class="g-item${it.phone ? ' g-phone' : it.w < 700 ? (it.w < 320 ? ' g-tiny' : ' g-small') : ''}">${it.phone ? `<figure class="phone"><img src="${media(it.src)}" width="${it.w}" height="${it.h}" alt="${esc(it.alt)}" loading="lazy"></figure>` : frame(it, { title: p.name })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
   </div>
   ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
 </section>`,
@@ -280,7 +281,7 @@ const productPage = (p) => {
 </section>`;
   return page({
     title: `${p.name} · ${site.name}`, desc: p.summary, path: `/products/${p.slug}/`, cur: 'products', body,
-    accent: { a: p.accent, b: p.accent2 }, image: p.cover.src,
+    accent: { a: p.accent, b: p.accent2 }, image: p.cover.src || (p.cover.phones ? `${p.slug}/${p.cover.phones[0]}.webp` : undefined),
   });
 };
 
