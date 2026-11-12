@@ -90,6 +90,14 @@ art.nma = `
 const wall = (names, cls = '') => `
 <div class="wall ${cls}">${names.map((n) => `<img src="${media(`ai-cv-studio/${n}.webp`)}" width="397" height="562" alt="CV template preview: ${esc(n)}, with sample data." loading="lazy">`).join('')}</div>`;
 
+const stage = (p) => {
+  const st = p.stage;
+  if (!st) return cover(p);
+  if (st.behind) return `<div class="stage stage-behind"><div class="st-behind">${frame(st.behind, { title: p.name })}</div>${cover(p)}</div>`;
+  if (st.inset) return `<div class="stage stage-inset">${cover(p)}<img class="st-inset" src="${media(st.inset.src)}" width="${st.inset.w}" height="${st.inset.h}" alt="" loading="lazy"></div>`;
+  return `<div class="stage stage-sheets">${cover(p)}<div class="st-sheets">${st.sheets.map((n) => `<img src="${media(`ai-cv-studio/${n}.webp`)}" width="397" height="562" alt="" loading="lazy">`).join('')}</div></div>`;
+};
+
 const cover = (p, opts = {}) => {
   if (p.cover.src) return frame(p.cover, { title: p.name, ...opts });
   if (p.cover.wall) return wall(p.cover.wall, 'wall-cover');
@@ -194,6 +202,7 @@ const sec = {
   <div class="g-track${s.numbered ? ' g-numbered' : ''}" tabindex="0" role="region" aria-label="${esc(p.name)} screenshots. Scroll sideways for more.">
     ${s.items.map((it) => `<div class="g-item${it.phone ? ' g-phone' : it.w < 700 ? (it.w < 320 ? ' g-tiny' : ' g-small') : ''}">${it.phone ? `<figure class="phone"><a class="zoom" href="${media(it.src)}" data-caption="${esc(it.caption)}" aria-label="Enlarge: ${esc(it.alt)}"><img src="${media(it.src)}" width="${it.w}" height="${it.h}" alt="${esc(it.alt)}" loading="lazy"></a></figure>` : frame(it, { title: p.name, zoom: true, sizes: '(max-width: 620px) 84vw, 900px' })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
   </div>
+  <div class="g-progress" aria-hidden="true"><i></i></div>
   ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
 </section>`,
 
@@ -245,6 +254,28 @@ const sec = {
   <h2 class="h2">${esc(s.title)}</h2>
   <ol class="flow">${s.steps.map((st) => `<li${st.key ? ' class="key"' : ''}><h3>${esc(st.name)}</h3><p>${esc(st.text)}</p></li>`).join('')}</ol>
 </section>`,
+
+  measured: (s) => {
+    const bar = (v, cls) => `<span class="bar ${cls}" style="--f:${(v / s.axis).toFixed(3)}"><b></b><em>${v.toFixed(1)}</em></span>`;
+    const row = (r, cls = '') => `<li class="${cls}"><span class="m-name">${esc(r.name)}</span><span class="m-bars">${bar(r.off, 'off')}${bar(r.on, 'on')}</span><span class="m-gain">${esc(r.gain)}</span></li>`;
+    return `
+<section class="s reveal measured">
+  <div class="s-head"><h2 class="h2">${esc(s.title)}</h2><span class="m-tag">Measured, not promised</span></div>
+  <div class="m-grid">
+    <div class="m-chart">
+      <p class="m-key"><span class="k-off"></span>${esc(s.off)}<span class="k-on"></span>${esc(s.on)}</p>
+      <ul>${s.rounds.map((r) => row(r)).join('')}${row({ name: 'Average', off: s.average.off, on: s.average.on, gain: s.average.gain + '%' }, 'avg')}</ul>
+      <p class="m-axis" aria-hidden="true"><span></span><span class="m-ticks"><i>0</i><i>${s.axis / 2}</i><i>${s.axis}</i></span><span>${esc(s.unit)}</span></p>
+    </div>
+    <div class="m-side">
+      <p class="m-big">${esc(s.average.gain)}<small>%</small></p>
+      <p class="m-sub">average gain in this test</p>
+      <ul>${s.caveats.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>
+    </div>
+  </div>
+  <p class="note">${esc(s.context)}</p>
+</section>`;
+  },
 
   figures: (s) => `
 <section class="s reveal">
@@ -345,6 +376,31 @@ const productPage = (p) => {
   });
 };
 
+/* ---------- hero artwork: a tangle unwinds into a thread that runs through every finished tool ---------- */
+const bench = () => {
+  const spots = [[290, 100], [452, 172], [402, 322], [240, 268], [100, 332], [172, 462]];
+  const thread = 'M96 96C170 56 228 66 290 100S426 104 452 172 470 294 402 322 300 230 240 268 128 252 100 332 94 444 172 462 306 502 358 462';
+  return `
+<div class="bench-wrap">
+<svg class="bench" viewBox="0 0 560 548" aria-label="A tangle of thread unwinds and runs through each finished tool, with one empty place left for the next.">
+  <defs><pattern id="pegs" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="14" cy="14" r="1.1" fill="#34302a"/></pattern></defs>
+  <rect class="b-board" x="6" y="6" width="548" height="536" rx="30"/>
+  <rect x="6" y="6" width="548" height="536" rx="30" fill="url(#pegs)"/>
+  <path class="b-tangle" d="M28 84C22 44 84 30 92 66S44 112 38 78 96 40 104 76 60 122 52 92 84 78 96 96"/>
+  <path class="b-thread" pathLength="1" d="${thread}"/>
+  <circle class="b-spark" r="4.5" style="offset-path:path('${thread}')"/>
+  ${products.slice(0, spots.length).map((p, i) => `
+  <a href="/products/${p.slug}/" aria-label="${esc(p.name)}: ${esc(p.tagline)}" style="--p:${p.accent};--d:${i}">
+    <g transform="translate(${spots[i][0] - 42} ${spots[i][1] - 42})"><g class="b-tile"><rect width="84" height="84" rx="22"/><g class="b-mark" transform="translate(18 18)" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">${p.mark}</g></g></g>
+    <text x="${spots[i][0]}" y="${spots[i][1] + 62}" text-anchor="middle">${esc(p.name)}</text>
+  </a>`).join('')}
+  <g transform="translate(316 420)"><rect class="b-next" width="84" height="84" rx="22"/><text class="b-q" x="42" y="55" text-anchor="middle">?</text></g>
+  <text class="b-note" x="26" y="150">a small annoyance</text>
+  <text class="b-note" x="358" y="526" text-anchor="middle">next?</text>
+</svg>
+</div>`;
+};
+
 /* ---------- pages ---------- */
 const featured = products.filter((p) => p.featured);
 const rest = products.filter((p) => !p.featured);
@@ -361,12 +417,7 @@ const home = () => page({
     <p class="hero-sub">A home for the tools I build because I wanted them to exist. They are free to use, and a new one appears whenever an idea refuses to leave me alone.</p>
     <div class="actions"><a class="btn btn-p" href="/products/">See what I've built ${arrow}</a><a class="btn" href="/about/">Who makes these?</a></div>
   </div>
-  <div class="forge-wrap">
-    <div class="forge" aria-hidden="true"><canvas></canvas></div>
-    <div class="forge-fallback" aria-hidden="true">${products.map((p) => mark(p, 40)).join('')}</div>
-    <p class="forge-cap" aria-hidden="true"><span class="forge-q">Small annoyances</span><a class="forge-a" tabindex="-1" href="/products/">turned into software</a></p>
-  </div>
-  <script type="application/json" id="forge-data">${JSON.stringify(products.map((p) => ({ name: p.name, slug: p.slug, accent: p.accent, mark: p.mark, q: p.annoyance }))).replace(/</g, '\\u003c')}</script>
+  ${bench()}
 </section>
 
 <div class="ticker" aria-hidden="true"><div>${Array.from({ length: 4 }, () => products.map((p) => `<span>${esc(p.name)}</span><b>✳</b>`).join('')).join('')}</div></div>
@@ -383,7 +434,8 @@ const home = () => page({
       <span class="go">Explore ${esc(p.name)} ${arrow}</span>
       ${motif(p)}
     </div>
-    <div class="showcase-art">${cover(p)}</div>
+    <div class="showcase-art">${stage(p)}</div>
+    ${p.motif && motifs[p.motif] ? `<span class="motif-bg" aria-hidden="true">${motifs[p.motif]}</span>` : ''}
   </a>`).join('')}
 </section>
 
@@ -459,6 +511,7 @@ const about = () => page({
   </div>
   <div class="about-photo">
     <div class="arch"><img src="${media(site.portrait.src)}" width="${site.portrait.w}" height="${site.portrait.h}" alt="${esc(site.portrait.alt)}" fetchpriority="high"></div>
+    <p class="arch-cap"><b>${site.creator}</b><span>the person behind ${site.name}</span></p>
     <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ring-p" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><text><textPath href="#ring-p">notice · wonder · build · share · repeat · notice · wonder · build · share · repeat ·</textPath></text><circle cx="100" cy="100" r="13"/></svg>
   </div>
 </section>

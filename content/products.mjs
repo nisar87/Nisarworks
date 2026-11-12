@@ -1,7 +1,7 @@
 // Every product on the site is one entry in this list.
 // To add a product: copy an entry, change its fields, put its images in media/<slug>/, run `node src/build.mjs`.
 // Section types a product page can use, in any order:
-//   problem, explainer, flow, features, figures, gallery, wall, say, routes, modes, video, install, limits, compat, aside
+//   problem, explainer, flow, features, figures, measured, gallery, wall, say, routes, modes, video, install, limits, compat, aside
 // Status kinds: released | early | beta | live | testing | lab
 
 const gh = 'https://github.com/nisar87/';
@@ -26,6 +26,7 @@ export const products = [
     mark: '<path d="M11 15C20 15 20 24 26 24M11 33C20 33 20 24 26 24H37"/><path d="M33 20l4.5 4-4.5 4"/><circle cx="11" cy="15" r="2.6" fill="currentColor" stroke="none"/><circle cx="11" cy="33" r="2.6" fill="currentColor" stroke="none"/>',
     cover: { src: 'netmerge/overview-cover.webp', w: 1440, h: 900, alt: 'NetMerge overview in dark mode: two lines merged, a combined speed gauge and live traffic.' },
     hero: 'wide',
+    stage: { behind: { src: 'netmerge/connections-dark.webp', w: 1440, h: 900, alt: '' } },
     actions: [
       { label: 'Download for Windows', href: gh + 'netmerge/releases/latest', kind: 'download' },
       { label: 'Source on GitHub', href: gh + 'netmerge' },
@@ -125,10 +126,20 @@ export const products = [
           { src: 'netmerge-android/home-off.webp', w: 540, h: 1070, phone: true, alt: 'Home screen with merging off and a Start merging button.', caption: 'Merging off. One button to start.' },
           { src: 'netmerge-android/home-networks-dark.webp', w: 540, h: 1070, phone: true, alt: 'Your networks in dark mode.', caption: 'Dark mode.' },
         ] },
-      { type: 'figures', title: 'What I measured', note: 'Three rounds on a Galaxy S26 Ultra with home Wi-Fi and 4G: one 140 MB file over 16 connections. Single runs vary, and your networks will differ.', items: [
-          { value: '61.7', unit: 'Mbps', label: 'Merging off, Wi-Fi alone' },
-          { value: '85.2', unit: 'Mbps', label: 'Merging on, Wi-Fi and mobile data' },
-          { value: '+38', unit: '%', label: 'Average gain' },
+      { type: 'measured', title: 'What I measured', unit: 'Mbps', axis: 100,
+        off: 'Merging off (Wi-Fi alone)', on: 'Merging on (Wi-Fi and mobile data)',
+        rounds: [
+          { name: 'Round 1', off: 61.4, on: 90.0, gain: '+47%' },
+          { name: 'Round 2', off: 63.9, on: 83.5, gain: '+31%' },
+          { name: 'Round 3', off: 59.7, on: 82.1, gain: '+38%' },
+        ],
+        average: { off: 61.7, on: 85.2, gain: '+38' },
+        context: 'One Galaxy S26 Ultra on home Wi-Fi and 4G, downloading one 140 MB file over 16 connections, three times each way.',
+        caveats: [
+          'This is one phone, one Wi-Fi network and one carrier. Your numbers will differ.',
+          'The gain is for many connections at once. A single connection gains nothing.',
+          'About a quarter of each merged download travelled over mobile data.',
+          'In a separate test, dropping a network mid-download stalled it for under 3 seconds.',
         ] },
       { type: 'features', layout: 'grid', title: 'What it does', items: [
           { title: 'Learns each network', text: 'It works out how fast Wi-Fi and mobile data are from the traffic they carry, and shares new connections to match.' },
@@ -179,6 +190,7 @@ export const products = [
     featured: true,
     mark: '<path d="M24 11v17M17 21.5l7 7 7-7"/><path d="M13 28v6h22v-6"/>',
     cover: { src: 'pullwell/main-dark.webp', w: 1280, h: 720, alt: 'Pullwell main window in dark mode with a list of downloads, one in progress.' },
+    stage: { inset: { src: 'pullwell/progress-crop.webp', w: 622, h: 293, alt: '' } },
     hero: 'split',
     actions: [
       { label: 'Download for Windows', href: gh + 'pullwell/releases/latest', kind: 'download' },
@@ -240,6 +252,7 @@ export const products = [
     featured: true,
     mark: '<path d="M14 9h14l6 6v24H14z"/><circle cx="24" cy="21" r="3.2"/><path d="M18.5 32c0-5 11-5 11 0"/>',
     cover: { src: 'ai-cv-studio/home.webp', w: 1440, h: 900, alt: 'AI CV Studio home page with an upload box and the line: Upload your CV, see it transformed.' },
+    stage: { sheets: ['vivid', 'atelier'] },
     hero: 'split',
     actions: [
       { label: 'Open aicvstudio.app', href: 'https://aicvstudio.app', kind: 'open' },
