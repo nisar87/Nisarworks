@@ -61,17 +61,50 @@
     nav.querySelector('.g-next').addEventListener('click', function () { step(1); });
   });
 
-  // Show the newest release number from GitHub. If that fails, the number in the page stays.
-  var seen = {};
-  document.querySelectorAll('[data-repo]').forEach(function (el) {
-    var repo = el.getAttribute('data-repo'), pre = el.hasAttribute('data-pre');
-    var key = repo + pre;
-    if (!seen[key]) {
-      seen[key] = fetch('https://api.github.com/repos/nisar87/' + repo + (pre ? '/releases?per_page=1' : '/releases/latest'))
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (d) { var rel = Array.isArray(d) ? d[0] : d; return rel && rel.tag_name ? String(rel.tag_name).replace(/^v/, '') : null; })
-        .catch(function () { return null; });
-    }
-    seen[key].then(function (v) { if (v) el.textContent = v; });
-  });
+  // Reveal safety net: if anything is still waiting after 3 seconds, show it.
+  setTimeout(function () { document.querySelectorAll('.reveal:not(.in)').forEach(function (el) { el.classList.add('in'); }); }, 3000);
+
+  // Enlarge a screenshot. Without this script the link simply opens the image.
+  var zooms = [].slice.call(document.querySelectorAll('a.zoom'));
+  if (zooms.length && window.HTMLDialogElement) {
+    var dlg = document.createElement('dialog');
+    dlg.className = 'lightbox';
+    dlg.setAttribute('aria-label', 'Screenshot');
+    dlg.innerHTML = '<div class="lb-in"><div class="lb-img"><img alt=""></div><div class="lb-bar"><p></p><div class="lb-btns">' +
+      '<button type="button" class="lb-prev" aria-label="Previous screenshot"><svg class="arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>' +
+      '<button type="button" class="lb-next" aria-label="Next screenshot"><svg class="arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>' +
+      '<button type="button" class="lb-close">Close</button></div></div></div>';
+    document.body.appendChild(dlg);
+    var big = dlg.querySelector('img'), cap = dlg.querySelector('p'), set = [], at = 0, opener = null;
+    var show = function (n) {
+      at = (n + set.length) % set.length;
+      var a = set[at], im = a.querySelector('img');
+      big.src = a.getAttribute('href');
+      big.alt = im ? im.alt : '';
+      cap.textContent = a.getAttribute('data-caption') || '';
+      var many = set.length > 1;
+      dlg.querySelector('.lb-prev').hidden = !many;
+      dlg.querySelector('.lb-next').hidden = !many;
+    };
+    zooms.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var group = a.closest('.g-track');
+        set = group ? [].slice.call(group.querySelectorAll('a.zoom')) : [a];
+        opener = a;
+        show(set.indexOf(a));
+        dlg.showModal();
+        dlg.querySelector('.lb-close').focus();
+      });
+    });
+    dlg.querySelector('.lb-prev').addEventListener('click', function () { show(at - 1); });
+    dlg.querySelector('.lb-next').addEventListener('click', function () { show(at + 1); });
+    dlg.querySelector('.lb-close').addEventListener('click', function () { dlg.close(); });
+    dlg.addEventListener('click', function (e) { if (e.target === dlg || e.target.classList.contains('lb-img')) dlg.close(); });
+    dlg.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') show(at - 1);
+      if (e.key === 'ArrowRight') show(at + 1);
+    });
+    dlg.addEventListener('close', function () { big.removeAttribute('src'); if (opener) opener.focus(); });
+  }
 })();

@@ -4,19 +4,23 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>NetMerge · Nisarworks</title>
-<meta name="description" content="Combines your cable, Wi-Fi and hotspot into one faster connection on Windows 11. No extra hardware, no paid service.">
+<meta name="description" content="Puts your cable, Wi-Fi and hotspot to work together on Windows 11, so anything that opens many connections gets faster. No extra hardware, no paid service.">
 <link rel="canonical" href="https://nisarworks.com/products/netmerge/">
 <meta property="og:title" content="NetMerge · Nisarworks">
-<meta property="og:description" content="Combines your cable, Wi-Fi and hotspot into one faster connection on Windows 11. No extra hardware, no paid service.">
+<meta property="og:description" content="Puts your cable, Wi-Fi and hotspot to work together on Windows 11, so anything that opens many connections gets faster. No extra hardware, no paid service.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nisarworks.com/products/netmerge/">
-<meta property="og:image" content="https://nisarworks.com/media/netmerge/overview-cover.webp">
+<meta property="og:image" content="https://nisarworks.com/media/og/netmerge.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:site_name" content="Nisarworks">
 <meta name="theme-color" content="#0d0c0a">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.ff5c0680.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NetMerge","description":"Puts your cable, Wi-Fi and hotspot to work together on Windows 11, so anything that opens many connections gets faster. No extra hardware, no paid service.","url":"https://nisarworks.com/products/netmerge/","applicationCategory":"Networking","operatingSystem":"Windows 11","softwareVersion":"3.17.5","author":{"@type":"Person","name":"Nisar Ahmad","url":"https://nisarworks.com/about/"}}</script>
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body style="--p:#7396ff;--p2:#f2c14e">
@@ -40,14 +44,14 @@
       <div class="p-id"><span class="mark" style="--p:#7396ff" aria-hidden="true"><svg viewBox="0 0 48 48" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15C20 15 20 24 26 24M11 33C20 33 20 24 26 24H37"/><path d="M33 20l4.5 4-4.5 4"/><circle cx="11" cy="15" r="2.6" fill="currentColor" stroke="none"/><circle cx="11" cy="33" r="2.6" fill="currentColor" stroke="none"/></svg></span><span>Networking</span></div>
       <h1>NetMerge</h1>
       <p class="p-tag">Every internet line you have, working at once.</p>
-      <p class="p-sum">Combines your cable, Wi-Fi and hotspot into one faster connection on Windows 11. No extra hardware, no paid service.</p>
-      <div class="p-meta"><span class="status status-released"><i></i>Released</span><span class="ver">v<span data-repo="netmerge">3.17.5</span></span><span>Windows 11</span></div>
+      <p class="p-sum">Puts your cable, Wi-Fi and hotspot to work together on Windows 11, so anything that opens many connections gets faster. No extra hardware, no paid service.</p>
+      <div class="p-meta"><span class="status status-released"><i></i>Released</span><span class="ver">v3.17.5</span><span>Windows 11</span></div>
       <div class="actions"><a class="btn btn-p" href="https://github.com/nisar87/netmerge/releases/latest"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>Download for Windows</a><a class="btn" href="https://github.com/nisar87/netmerge">Source on GitHub</a></div>
     </div>
     <div class="p-hero-art">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>NetMerge</span></div>
-  <img src="/media/netmerge/overview-cover.webp" width="1440" height="900" alt="NetMerge overview in dark mode: two lines merged, a combined speed gauge and live traffic." fetchpriority="high">
+  <img src="/media/netmerge/overview-cover.webp" srcset="/media/netmerge/overview-cover-720.webp 720w, /media/netmerge/overview-cover.webp 1440w" sizes="(max-width: 980px) 92vw, 640px" width="1440" height="900" alt="NetMerge overview in dark mode: two lines merged, a combined speed gauge and live traffic." fetchpriority="high">
 </figure></div>
   </header>
   
@@ -56,39 +60,57 @@
   <h2 class="big">Two connections at home. One doing all the work.</h2>
   <div class="prose"><p>Plenty of homes have a cable line and a second way online: Wi-Fi from another provider, or a phone hotspot. Windows picks one and ignores the rest.</p><p>NetMerge hands every new connection your programs open to whichever line has the most room right now. Browsers, download managers and game launchers open many connections, so they end up drawing on all your lines together.</p></div>
 </section>
+<section class="s reveal">
+  <h2 class="h2">What merging can and cannot do</h2>
+  <div class="explain">
+    <div class="explain-p good">
+      <h3>Many connections at once</h3>
+      <div class="conns" aria-hidden="true"><i class="c-a"></i><i class="c-b"></i><i class="c-a"></i><i class="c-b"></i><i class="c-a"></i><i class="c-b"></i><i class="c-a"></i><i class="c-b"></i></div>
+      <ul class="lines"><li class="l-a"><span>Line 1</span><b></b><em>busy</em></li><li class="l-b"><span>Line 2</span><b></b><em>busy</em></li></ul>
+      <p>Browsers, download managers and game launchers open many connections. NetMerge shares them between your lines, so both carry traffic. This is where the extra speed comes from.</p>
+    </div>
+    <div class="explain-p">
+      <h3>One single connection</h3>
+      <div class="conns" aria-hidden="true"><i class="c-a"></i></div>
+      <ul class="lines"><li class="l-a"><span>Line 1</span><b></b><em>busy</em></li><li class="l-b idle"><span>Line 2</span><b></b><em>idle</em></li></ul>
+      <p>One connection cannot be split across lines, so it stays on one of them. A single-stream speed test shows the speed of one line, not the sum.</p>
+    </div>
+  </div>
+  <p class="note">A diagram of how connections are shared, not a screenshot.</p>
+</section>
 <section class="s s-gallery reveal" aria-label="A look inside">
   <div class="s-head"><h2 class="h2">A look inside</h2>
     <div class="g-nav" hidden><button type="button" class="g-prev" aria-label="Previous screenshot"><svg class="arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button><button type="button" class="g-next" aria-label="Next screenshot"><svg class="arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button></div>
   </div>
-  <div class="g-track" tabindex="0">
+  <div class="g-track" tabindex="0" role="region" aria-label="NetMerge screenshots. Scroll sideways for more.">
     <div class="g-item">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>NetMerge</span></div>
-  <img src="/media/netmerge/overview-dark.webp" width="1440" height="1240" alt="NetMerge overview in dark mode with a combined speed gauge and a card per connection." loading="lazy">
+  <a class="zoom" href="/media/netmerge/overview-dark.webp" data-caption="Overview. Both lines merged, the combined speed gauge and live traffic." aria-label="Enlarge: NetMerge overview in dark mode with a combined speed gauge and a card per connection."><img src="/media/netmerge/overview-dark.webp" srcset="/media/netmerge/overview-dark-720.webp 720w, /media/netmerge/overview-dark.webp 1440w" sizes="(max-width: 620px) 84vw, 900px" width="1440" height="1240" alt="NetMerge overview in dark mode with a combined speed gauge and a card per connection." loading="lazy"></a>
 </figure><p class="cap">Overview. Both lines merged, the combined speed gauge and live traffic.</p></div><div class="g-item">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>NetMerge</span></div>
-  <img src="/media/netmerge/connections-dark.webp" width="1440" height="900" alt="NetMerge connections page with three ways for lines to work together." loading="lazy">
+  <a class="zoom" href="/media/netmerge/connections-dark.webp" data-caption="Connections. Choose how your lines work together." aria-label="Enlarge: NetMerge connections page with three ways for lines to work together."><img src="/media/netmerge/connections-dark.webp" srcset="/media/netmerge/connections-dark-720.webp 720w, /media/netmerge/connections-dark.webp 1440w" sizes="(max-width: 620px) 84vw, 900px" width="1440" height="900" alt="NetMerge connections page with three ways for lines to work together." loading="lazy"></a>
 </figure><p class="cap">Connections. Choose how your lines work together.</p></div><div class="g-item">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>NetMerge</span></div>
-  <img src="/media/netmerge/usage-dark.webp" width="1440" height="1100" alt="NetMerge usage page with data per line and a daily bar chart." loading="lazy">
+  <a class="zoom" href="/media/netmerge/usage-dark.webp" data-caption="Usage. Data per line, an allowance forecast and 31 days of daily use." aria-label="Enlarge: NetMerge usage page with data per line and a daily bar chart."><img src="/media/netmerge/usage-dark.webp" srcset="/media/netmerge/usage-dark-720.webp 720w, /media/netmerge/usage-dark.webp 1440w" sizes="(max-width: 620px) 84vw, 900px" width="1440" height="1100" alt="NetMerge usage page with data per line and a daily bar chart." loading="lazy"></a>
 </figure><p class="cap">Usage. Data per line, an allowance forecast and 31 days of daily use.</p></div><div class="g-item">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>NetMerge</span></div>
-  <img src="/media/netmerge/apps-light.webp" width="1440" height="900" alt="NetMerge apps page listing programs and the connection each one uses." loading="lazy">
+  <a class="zoom" href="/media/netmerge/apps-light.webp" data-caption="Apps. See which line each program uses, and change it." aria-label="Enlarge: NetMerge apps page listing programs and the connection each one uses."><img src="/media/netmerge/apps-light.webp" srcset="/media/netmerge/apps-light-720.webp 720w, /media/netmerge/apps-light.webp 1440w" sizes="(max-width: 620px) 84vw, 900px" width="1440" height="900" alt="NetMerge apps page listing programs and the connection each one uses." loading="lazy"></a>
 </figure><p class="cap">Apps. See which line each program uses, and change it.</p></div><div class="g-item">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>NetMerge</span></div>
-  <img src="/media/netmerge/sharing-light.webp" width="1440" height="1068" alt="NetMerge sharing page with steps and a QR code to connect a phone." loading="lazy">
+  <a class="zoom" href="/media/netmerge/sharing-light.webp" data-caption="Sharing. Scan the code and your phone uses the merged connection too." aria-label="Enlarge: NetMerge sharing page with steps and a QR code to connect a phone."><img src="/media/netmerge/sharing-light.webp" srcset="/media/netmerge/sharing-light-720.webp 720w, /media/netmerge/sharing-light.webp 1440w" sizes="(max-width: 620px) 84vw, 900px" width="1440" height="1068" alt="NetMerge sharing page with steps and a QR code to connect a phone." loading="lazy"></a>
 </figure><p class="cap">Sharing. Scan the code and your phone uses the merged connection too.</p></div><div class="g-item">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>NetMerge</span></div>
-  <img src="/media/netmerge/presets-light.webp" width="1440" height="1116" alt="NetMerge presets page with one-click setups and a schedule." loading="lazy">
+  <a class="zoom" href="/media/netmerge/presets-light.webp" data-caption="Presets. Work from home, gaming, travel and your own, with a schedule." aria-label="Enlarge: NetMerge presets page with one-click setups and a schedule."><img src="/media/netmerge/presets-light.webp" srcset="/media/netmerge/presets-light-720.webp 720w, /media/netmerge/presets-light.webp 1440w" sizes="(max-width: 620px) 84vw, 900px" width="1440" height="1116" alt="NetMerge presets page with one-click setups and a schedule." loading="lazy"></a>
 </figure><p class="cap">Presets. Work from home, gaming, travel and your own, with a schedule.</p></div><div class="g-item">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>NetMerge</span></div>
-  <img src="/media/netmerge/blocking-light.webp" width="1440" height="1103" alt="NetMerge blocking page with block lists and the sites blocked today." loading="lazy">
+  <a class="zoom" href="/media/netmerge/blocking-light.webp" data-caption="Blocking. Block lists, the sites blocked today, and your own lists." aria-label="Enlarge: NetMerge blocking page with block lists and the sites blocked today."><img src="/media/netmerge/blocking-light.webp" srcset="/media/netmerge/blocking-light-720.webp 720w, /media/netmerge/blocking-light.webp 1440w" sizes="(max-width: 620px) 84vw, 900px" width="1440" height="1103" alt="NetMerge blocking page with block lists and the sites blocked today." loading="lazy"></a>
 </figure><p class="cap">Blocking. Block lists, the sites blocked today, and your own lists.</p></div>
   </div>
   <p class="note">Screenshots of the current version.</p>
@@ -107,13 +129,13 @@
 </section>
 <section class="s s-limits reveal">
   <h2 class="h2">Honest limits</h2>
-  <ul class="limits"><li>One single connection can only use one line. A single-stream speed test shows one line's speed. The gain comes from many connections at once.</li><li>Two lines from the same provider usually cannot add speed.</li><li>Other firewall or VPN drivers can conflict with NetMerge's virtual adapter. It warns you if it finds one.</li><li>The app is not code-signed yet, so Windows asks you to confirm the first run.</li></ul>
+  <ul class="limits"><li>Two lines from the same provider usually cannot add speed.</li><li>Other firewall or VPN drivers can conflict with NetMerge's virtual adapter. It warns you if it finds one.</li><li>The app is not code-signed yet, so Windows asks you to confirm the first run.</li></ul>
 </section>
 <section class="s reveal">
   <h2 class="h2">What you need</h2>
   <dl class="compat">
     <div><dt>Runs on</dt><dd>Windows 11, 64-bit</dd></div><div><dt>Needs</dt><dd>Administrator rights, and two or more active connections</dd></div><div><dt>Engine</dt><dd>mihomo (open source), fetched on first start</dd></div><div><dt>Licence</dt><dd>MIT</dd></div>
-    <div><dt>Current version</dt><dd><span class="ver">v<span data-repo="netmerge">3.17.5</span></span></dd></div>
+    <div><dt>Current version</dt><dd><span class="ver">v3.17.5</span></dd></div>
     <div><dt>Status</dt><dd><span class="status status-released"><i></i>Released</span></dd></div>
   </dl>
 </section>
@@ -140,7 +162,7 @@
   <div class="card-cover">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>Pullwell</span></div>
-  <img src="/media/pullwell/main-dark.webp" width="1280" height="720" alt="Pullwell main window in dark mode with a list of downloads, one in progress." loading="lazy">
+  <img src="/media/pullwell/main-dark.webp" srcset="/media/pullwell/main-dark-720.webp 720w, /media/pullwell/main-dark.webp 1440w" sizes="(max-width: 980px) 92vw, 640px" width="1280" height="720" alt="Pullwell main window in dark mode with a list of downloads, one in progress." loading="lazy">
 </figure></div>
   <span class="card-foot"><span>Windows 10 and 11</span><span class="go">Explore <svg class="arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></span>
 </a>
@@ -151,7 +173,7 @@
   <div class="card-cover">
 <figure class="frame ">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>AI CV Studio</span></div>
-  <img src="/media/ai-cv-studio/home.webp" width="1440" height="900" alt="AI CV Studio home page with an upload box and the line: Upload your CV, see it transformed." loading="lazy">
+  <img src="/media/ai-cv-studio/home.webp" srcset="/media/ai-cv-studio/home-720.webp 720w, /media/ai-cv-studio/home.webp 1440w" sizes="(max-width: 980px) 92vw, 640px" width="1440" height="900" alt="AI CV Studio home page with an upload box and the line: Upload your CV, see it transformed." loading="lazy">
 </figure></div>
   <span class="card-foot"><span>Any modern browser</span><span class="go">Explore <svg class="arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></span>
 </a></div>
@@ -177,6 +199,6 @@
   </div>
   <p class="foot-loop" aria-hidden="true">notice <b>→</b> wonder <b>→</b> build <b>→</b> share <b>→</b> repeat</p>
 </footer>
-<script src="/app.js" defer></script>
+<script src="/assets/app.aa3befc7.js" defer></script>
 </body>
 </html>

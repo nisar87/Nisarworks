@@ -14,7 +14,9 @@ The website at nisarworks.com: a home for the software Nisar Ahmad builds.
 
 1. Edit its entry in `content/products.mjs`, or copy an entry to add a new one.
 2. Put its images in `media/<slug>/` and name them in the entry.
-3. Run `node src/build.mjs`. It needs Node 18 or newer and nothing else.
+3. Optional: run `python3 tools/media.py` to make small-screen copies and social preview images (needs Pillow).
+4. Optional: run `node src/update-versions.mjs` to pick up new release numbers from GitHub.
+5. Run `node src/build.mjs`. It needs Node 18 or newer and nothing else.
 
 ## Publish
 

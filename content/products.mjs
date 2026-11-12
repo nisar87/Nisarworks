@@ -1,7 +1,7 @@
 // Every product on the site is one entry in this list.
 // To add a product: copy an entry, change its fields, put its images in media/<slug>/, run `node src/build.mjs`.
 // Section types a product page can use, in any order:
-//   problem, features, figures, gallery, wall, say, routes, modes, video, install, limits, compat, aside
+//   problem, explainer, flow, features, figures, gallery, wall, say, routes, modes, video, install, limits, compat, aside
 // Status kinds: released | early | beta | live | lab
 
 const gh = 'https://github.com/nisar87/';
@@ -11,7 +11,7 @@ export const products = [
     slug: 'netmerge',
     name: 'NetMerge',
     tagline: 'Every internet line you have, working at once.',
-    summary: 'Combines your cable, Wi-Fi and hotspot into one faster connection on Windows 11. No extra hardware, no paid service.',
+    summary: 'Puts your cable, Wi-Fi and hotspot to work together on Windows 11, so anything that opens many connections gets faster. No extra hardware, no paid service.',
     category: 'Networking',
     platforms: ['Windows'],
     platformNote: 'Windows 11',
@@ -34,6 +34,14 @@ export const products = [
           'Plenty of homes have a cable line and a second way online: Wi-Fi from another provider, or a phone hotspot. Windows picks one and ignores the rest.',
           'NetMerge hands every new connection your programs open to whichever line has the most room right now. Browsers, download managers and game launchers open many connections, so they end up drawing on all your lines together.',
         ] },
+      { type: 'explainer', title: 'What merging can and cannot do', panels: [
+          { title: 'Many connections at once', good: true, conns: ['a', 'b', 'a', 'b', 'a', 'b', 'a', 'b'],
+            lines: [{ id: 'a', name: 'Line 1', load: 1, note: 'busy' }, { id: 'b', name: 'Line 2', load: 1, note: 'busy' }],
+            text: 'Browsers, download managers and game launchers open many connections. NetMerge shares them between your lines, so both carry traffic. This is where the extra speed comes from.' },
+          { title: 'One single connection', conns: ['a'],
+            lines: [{ id: 'a', name: 'Line 1', load: 1, note: 'busy' }, { id: 'b', name: 'Line 2', load: 0, note: 'idle' }],
+            text: 'One connection cannot be split across lines, so it stays on one of them. A single-stream speed test shows the speed of one line, not the sum.' },
+        ] },
       { type: 'gallery', title: 'A look inside', note: 'Screenshots of the current version.', items: [
           { src: 'netmerge/overview-dark.webp', w: 1440, h: 1240, alt: 'NetMerge overview in dark mode with a combined speed gauge and a card per connection.', caption: 'Overview. Both lines merged, the combined speed gauge and live traffic.' },
           { src: 'netmerge/connections-dark.webp', w: 1440, h: 900, alt: 'NetMerge connections page with three ways for lines to work together.', caption: 'Connections. Choose how your lines work together.' },
@@ -55,7 +63,6 @@ export const products = [
         body: 'It is its own app with its own engine: Wi-Fi and mobile data at the same time. It is in test builds.',
         link: { label: 'See NetMerge for Android', href: '/products/netmerge-android/' } },
       { type: 'limits', title: 'Honest limits', items: [
-          'One single connection can only use one line. A single-stream speed test shows one line\'s speed. The gain comes from many connections at once.',
           'Two lines from the same provider usually cannot add speed.',
           'Other firewall or VPN drivers can conflict with NetMerge\'s virtual adapter. It warns you if it finds one.',
           'The app is not code-signed yet, so Windows asks you to confirm the first run.',
@@ -161,6 +168,11 @@ export const products = [
           'The connection drops at 94%. The PC restarts overnight. The file arrives a few bytes short and nothing tells you.',
           'Pullwell picks up where it stopped after a crash, a restart or a lost connection. It never calls a file finished unless the size is right, and the checksum too when one is known.',
         ] },
+      { type: 'install', title: 'When a download is interrupted', items: [
+          'The connection drops, the PC restarts, or the program crashes. The unfinished download stays in your list.',
+          'When Pullwell is running again and the connection is back, it carries on from where it stopped.',
+          'The file is marked finished only when its size is right, and its checksum too when one is known.',
+        ] },
       { type: 'features', layout: 'rows', title: 'What it does', items: [
           { title: 'Several connections per file', text: 'Files are fetched in parts over several connections at once, which is also what lets NetMerge spread one download across lines.' },
           { title: 'Queues with their own hours', text: 'A scheduler, speed limits overall or per download, categories, mirrors and numbered series.' },
@@ -215,11 +227,11 @@ export const products = [
           'Most people have a CV somewhere: a PDF from years ago, a Word file, sometimes only a printout. Starting again from a blank template is the part nobody enjoys.',
           'AI CV Studio takes what you already have, including a photo of a paper CV, or asks a few plain questions if you have nothing. You pick a look, adjust it, and download a PDF.',
         ] },
-      { type: 'gallery', title: 'A look inside', note: 'Screenshots of the live site, with sample people.', items: [
+      { type: 'gallery', title: 'From upload to download', numbered: true, note: 'Screenshots of the live site. The people and CVs shown are samples.', items: [
           { src: 'ai-cv-studio/makeover-result.webp', w: 1440, h: 900, alt: 'A new CV shown next to a row of designs chosen for the person.', caption: 'Upload a CV and see it in designs chosen for your kind of work.' },
+          { src: 'ai-cv-studio/design-gallery.webp', w: 1440, h: 900, alt: 'A gallery of CV designs with example professions.', caption: 'Or browse every design, with examples by profession.' },
           { src: 'ai-cv-studio/editor.webp', w: 1440, h: 900, alt: 'The CV editor with a form on the left and the page on the right.', caption: 'The editor. Change any line and watch the page update.' },
           { src: 'ai-cv-studio/design-studio.webp', w: 1440, h: 900, alt: 'Design controls for columns, colours and headings next to the CV.', caption: 'Design controls: columns, colours, headings and spacing.' },
-          { src: 'ai-cv-studio/design-gallery.webp', w: 1440, h: 900, alt: 'A gallery of CV designs with example professions.', caption: 'The design gallery, with examples by profession.' },
           { src: 'ai-cv-studio/download-health-check.webp', w: 1440, h: 900, alt: 'A final check of the CV before download.', caption: 'A last check before you download.' },
           { src: 'ai-cv-studio/mobile-home.webp', w: 540, h: 779, alt: 'AI CV Studio on a phone.', caption: 'It works on a phone too.' },
         ] },
@@ -299,6 +311,7 @@ export const products = [
           'It is a beta. Expect changes between versions.',
           'Checking is for English.',
           'It does not read the conversation around your text. To get a suggested reply, you select the message yourself.',
+          'AI help with a Gemini key works out of the box. Using your ChatGPT plan needs an optional add-on.',
         ] },
       { type: 'compat', title: 'What you need', rows: [
           ['Runs on', 'Windows'],
@@ -342,6 +355,13 @@ export const products = [
           'Say "Hi Vox", or press Ctrl+Alt+Space, and ask in your own words. Vox hears the whole request, does every part of it, and answers briefly.',
           'It asks before deleting, shutting down, reorganising a folder or running PowerShell. Files are moved, never overwritten, and "Undo that" puts them back.',
         ] },
+      { type: 'flow', title: 'From voice to done', steps: [
+          { name: 'You say it', text: 'Say "Hi Vox", press the hotkey, or type.' },
+          { name: 'Vox picks a route', text: 'Instant, learned, or one request to the AI.' },
+          { name: 'It asks first when it matters', key: true, text: 'Deleting, shutting down, reorganising a folder and running PowerShell wait for your yes or no.' },
+          { name: 'It does every step', text: 'Files are moved, never overwritten.' },
+          { name: 'It tells you what it did', text: 'With how long hearing, thinking and doing each took. "Undo that" puts files back.' },
+        ] },
       { type: 'gallery', title: 'A look inside', note: 'Screenshots of version 0.4.3.', items: [
           { src: 'vox/talk.webp', w: 1440, h: 1073, alt: 'The Vox Talk screen.', caption: 'Talk. What you said, what Vox did, and how long each part took.' },
           { src: 'vox/learned.webp', w: 1440, h: 1073, alt: 'The Vox Learned screen listing remembered commands.', caption: 'Learned. Commands Vox can now do without the AI.' },
@@ -352,9 +372,14 @@ export const products = [
           { name: 'Learned', when: 'Anything the AI has planned for you before, and close variations of it.', cost: 'No AI request' },
           { name: 'AI', when: 'Everything else. The model returns every step at once.', cost: 'One request' },
         ] },
+      { type: 'features', layout: 'rows', title: 'What stays on your PC, and what leaves it', items: [
+          { title: 'Stays on your PC', text: 'Your API keys, settings, the undo journal and the commands Vox has learned.' },
+          { title: 'Sent to your AI provider', text: 'The text of commands that need the AI, with the names of your installed programs and standard folders.' },
+          { title: 'Your voice', text: 'With speech recognition set to "On this PC only", audio never leaves the machine. In a live conversation, your voice is streamed to the provider you chose.' },
+          { title: 'Standby', text: 'By default, speech near the PC is sent to your provider to listen for "Hi Vox". A setting keeps that check on the PC. Standby pauses while you are on a call.' },
+        ] },
       { type: 'limits', title: 'Honest limits', items: [
           'You bring your own Gemini or OpenAI API key.',
-          'While standby is on, speech near the PC is sent to your AI provider to listen for "Hi Vox". A setting keeps that check on the PC instead.',
           'Microphone capture, the hotkey, spoken replies and standby cannot be tested on build machines, so they are only checked on real PCs.',
           'The installer is not code-signed yet, so Windows asks you to confirm the first run.',
         ] },

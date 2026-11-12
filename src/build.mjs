@@ -1,5 +1,6 @@
 // Builds the whole site into public/ from content/*.mjs. No dependencies: `node src/build.mjs`.
 import { mkdirSync, writeFileSync, readFileSync, cpSync, rmSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { products, lab } from '../content/products.mjs';
@@ -9,6 +10,17 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const out = join(root, 'public');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const media = (p) => '/media/' + p;
+const versionsFile = join(root, 'content/versions.json');
+const versions = existsSync(versionsFile) ? JSON.parse(readFileSync(versionsFile, 'utf8')) : {};
+const ver = (p) => versions[p.slug] || p.version;
+// <img> attributes for a screenshot: a 720px copy for small screens when tools/media.py has made one.
+const src = (path, sizes) => {
+  const small = path.replace(/\.webp$/, '-720.webp');
+  return existsSync(join(root, 'media', small))
+    ? `src="${media(path)}" srcset="${media(small)} 720w, ${media(path)} 1440w" sizes="${sizes}"`
+    : `src="${media(path)}"`;
+};
+const og = (name) => (existsSync(join(root, 'media/og', name + '.jpg')) ? `og/${name}.jpg` : undefined);
 
 /* ---------- small pieces ---------- */
 const mark = (p, size = 48) =>
@@ -16,8 +28,7 @@ const mark = (p, size = 48) =>
 
 const status = (p) => `<span class="status status-${p.status.kind}"><i></i>${esc(p.status.label)}</span>`;
 
-const version = (p) => p.version
-  ? `<span class="ver">v<span${p.versionFixed ? '' : ` data-repo="${p.repo}"${p.prerelease ? ' data-pre' : ''}`}>${esc(p.version)}</span></span>` : '';
+const version = (p) => (p.version ? `<span class="ver">v${esc(ver(p))}</span>` : '');
 
 const arrow = '<svg class="arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
 const icons = {
@@ -25,11 +36,14 @@ const icons = {
   open: '<svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3H3v10h10v-3M9 3h4v4M13 3 7.5 8.5"/></svg>',
 };
 
-const frame = (img, { title = '', eager = false, cls = '' } = {}) => `
+const frame = (img, { title = '', eager = false, cls = '', sizes = '(max-width: 980px) 92vw, 640px', zoom = false } = {}) => {
+  const tag = `<img ${src(img.src, sizes)} width="${img.w}" height="${img.h}" alt="${esc(img.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'}>`;
+  return `
 <figure class="frame ${cls}">
   <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(title)}</span></div>
-  <img src="${media(img.src)}" width="${img.w}" height="${img.h}" alt="${esc(img.alt)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'}>
+  ${zoom ? `<a class="zoom" href="${media(img.src)}" data-caption="${esc(img.caption || img.alt)}" aria-label="Enlarge: ${esc(img.alt)}">${tag}</a>` : tag}
 </figure>`;
+};
 
 /* Illustrations for products that have no screenshots yet. Always labelled. */
 const art = {
@@ -63,14 +77,20 @@ art.nma = `
 </div>`;
 
 const wall = (names, cls = '') => `
-<div class="wall ${cls}">${names.map((n) => `<img src="${media(`ai-cv-studio/${n}.webp`)}" width="397" height="562" alt="CV template preview: ${esc(n)}, with sample data." loading="lazy" decoding="async">`).join('')}</div>`;
+<div class="wall ${cls}">${names.map((n) => `<img src="${media(`ai-cv-studio/${n}.webp`)}" width="397" height="562" alt="CV template preview: ${esc(n)}, with sample data." loading="lazy">`).join('')}</div>`;
 
 const cover = (p, opts = {}) => {
   if (p.cover.src) return frame(p.cover, { title: p.name, ...opts });
   if (p.cover.wall) return wall(p.cover.wall, 'wall-cover');
-  if (p.cover.phones) return `<div class="phones" role="img" aria-label="${esc(p.cover.alt)}">${p.cover.phones.map((n) => `<img src="${media(`${p.slug}/${n}.webp`)}" width="540" height="1070" alt="" loading="lazy">`).join('')}</div>`;
+  if (p.cover.phones) return `<div class="phones" role="img" aria-label="${esc(p.cover.alt)}">${p.cover.phones.map((n) => `<img src="${media(`${p.slug}/${n}.webp`)}" width="540" height="1070" alt="" ${opts.eager ? '' : 'loading="lazy"'}>`).join('')}</div>`;
   return art[p.cover.art];
 };
+
+/* ---------- styles and script, named by their content so browsers can cache them for a long time ---------- */
+const css = readFileSync(join(root, 'src/styles.css'), 'utf8').replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s+/gm, '').replace(/\n+/g, '\n');
+const js = readFileSync(join(root, 'src/app.js'), 'utf8');
+const hash = (t) => createHash('sha1').update(t).digest('hex').slice(0, 8);
+const assets = { css: `styles.${hash(css)}.css`, js: `app.${hash(js)}.js` };
 
 /* ---------- page shell ---------- */
 const nav = (cur) => `
@@ -104,7 +124,7 @@ const footer = () => `
   <p class="foot-loop" aria-hidden="true">notice <b>→</b> wonder <b>→</b> build <b>→</b> share <b>→</b> repeat</p>
 </footer>`;
 
-const page = ({ title, desc, path, cur, body, accent, image }) => `<!DOCTYPE html>
+const page = ({ title, desc, path, cur, body, accent, image, ld }) => `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -116,13 +136,14 @@ const page = ({ title, desc, path, cur, body, accent, image }) => `<!DOCTYPE htm
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${site.url}${path}">
-${image ? `<meta property="og:image" content="${site.url}${media(image)}">` : ''}
+${image ? `<meta property="og:image" content="${site.url}${media(image)}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta name="twitter:card" content="summary_large_image">` : ''}
+<meta property="og:site_name" content="${site.name}">
 <meta name="theme-color" content="#0d0c0a">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/${assets.css}">
+${ld ? `<script type="application/ld+json">${JSON.stringify(ld)}</script>` : ''}
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body${accent ? ` style="--p:${accent.a};--p2:${accent.b}"` : ''}>
@@ -133,7 +154,7 @@ ${nav(cur)}
 ${body}
 </main>
 ${footer()}
-<script src="/app.js" defer></script>
+<script src="/assets/${assets.js}" defer></script>
 </body>
 </html>`;
 
@@ -159,8 +180,8 @@ const sec = {
   <div class="s-head"><h2 class="h2">${esc(s.title)}</h2>
     <div class="g-nav" hidden><button type="button" class="g-prev" aria-label="Previous screenshot">${arrow}</button><button type="button" class="g-next" aria-label="Next screenshot">${arrow}</button></div>
   </div>
-  <div class="g-track" tabindex="0">
-    ${s.items.map((it) => `<div class="g-item${it.phone ? ' g-phone' : it.w < 700 ? (it.w < 320 ? ' g-tiny' : ' g-small') : ''}">${it.phone ? `<figure class="phone"><img src="${media(it.src)}" width="${it.w}" height="${it.h}" alt="${esc(it.alt)}" loading="lazy"></figure>` : frame(it, { title: p.name })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
+  <div class="g-track${s.numbered ? ' g-numbered' : ''}" tabindex="0" role="region" aria-label="${esc(p.name)} screenshots. Scroll sideways for more.">
+    ${s.items.map((it) => `<div class="g-item${it.phone ? ' g-phone' : it.w < 700 ? (it.w < 320 ? ' g-tiny' : ' g-small') : ''}">${it.phone ? `<figure class="phone"><a class="zoom" href="${media(it.src)}" data-caption="${esc(it.caption)}" aria-label="Enlarge: ${esc(it.alt)}"><img src="${media(it.src)}" width="${it.w}" height="${it.h}" alt="${esc(it.alt)}" loading="lazy"></a></figure>` : frame(it, { title: p.name, zoom: true, sizes: '(max-width: 620px) 84vw, 900px' })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
   </div>
   ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
 </section>`,
@@ -193,6 +214,26 @@ const sec = {
   <div class="modes">${col(s.left, 'mode-a')}${col(s.right, 'mode-b')}</div>
 </section>`;
   },
+
+  explainer: (s) => `
+<section class="s reveal">
+  <h2 class="h2">${esc(s.title)}</h2>
+  <div class="explain">${s.panels.map((pn) => `
+    <div class="explain-p${pn.good ? ' good' : ''}">
+      <h3>${esc(pn.title)}</h3>
+      <div class="conns" aria-hidden="true">${pn.conns.map((c) => `<i class="c-${c}"></i>`).join('')}</div>
+      <ul class="lines">${pn.lines.map((l) => `<li class="l-${l.id}${l.load ? '' : ' idle'}"><span>${esc(l.name)}</span><b></b><em>${esc(l.note)}</em></li>`).join('')}</ul>
+      <p>${esc(pn.text)}</p>
+    </div>`).join('')}
+  </div>
+  <p class="note">A diagram of how connections are shared, not a screenshot.</p>
+</section>`,
+
+  flow: (s) => `
+<section class="s reveal">
+  <h2 class="h2">${esc(s.title)}</h2>
+  <ol class="flow">${s.steps.map((st) => `<li${st.key ? ' class="key"' : ''}><h3>${esc(st.name)}</h3><p>${esc(st.text)}</p></li>`).join('')}</ol>
+</section>`,
 
   figures: (s) => `
 <section class="s reveal">
@@ -281,7 +322,14 @@ const productPage = (p) => {
 </section>`;
   return page({
     title: `${p.name} · ${site.name}`, desc: p.summary, path: `/products/${p.slug}/`, cur: 'products', body,
-    accent: { a: p.accent, b: p.accent2 }, image: p.cover.src || (p.cover.phones ? `${p.slug}/${p.cover.phones[0]}.webp` : undefined),
+    accent: { a: p.accent, b: p.accent2 }, image: og(p.slug),
+    ld: {
+      '@context': 'https://schema.org', '@type': p.platforms.includes('Web') ? 'WebApplication' : 'SoftwareApplication',
+      name: p.name, description: p.summary, url: `${site.url}/products/${p.slug}/`,
+      applicationCategory: p.category, operatingSystem: p.platformNote,
+      ...(p.version ? { softwareVersion: ver(p) } : {}),
+      author: { '@type': 'Person', name: site.creator, url: `${site.url}/about/` },
+    },
   });
 };
 
@@ -291,7 +339,8 @@ const rest = products.filter((p) => !p.featured);
 const byslug = Object.fromEntries(products.map((p) => [p.slug, p]));
 
 const home = () => page({
-  title: `${site.name} · Software by ${site.creator}`, desc: site.description, path: '/', image: 'netmerge/overview-cover.webp',
+  title: `${site.name} · Software by ${site.creator}`, desc: site.description, path: '/', image: og('home'),
+  ld: { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: site.url, description: site.description, author: { '@type': 'Person', name: site.creator, url: `${site.url}/about/` } },
   body: `
 <section class="hero">
   <div class="hero-text">
@@ -326,7 +375,7 @@ const home = () => page({
 
 <section class="s">
   <div class="s-head"><h2 class="h2">Also in the collection</h2></div>
-  <div class="grid grid-2">${rest.map((p) => card(p)).join('')}</div>
+  <div class="grid grid-3">${rest.map((p) => card(p)).join('')}</div>
 </section>
 
 <section class="s s-lab reveal">
@@ -365,15 +414,17 @@ const productsPage = () => page({
   </div>
 </section>
 <section class="s">
+  <h2 class="sr">All products</h2>
   <div class="grid grid-bento" id="collection">
-    ${products.map((p) => card(p, p.featured ? 'card-wide' : '')).join('')}
+    ${[...featured, ...rest].map((p) => card(p, p.featured ? 'card-wide' : 'card-compact')).join('')}
   </div>
   <p class="empty" id="empty" hidden>Nothing for this platform yet.</p>
 </section>`,
 });
 
 const about = () => page({
-  title: `About · ${site.name}`, desc: `${site.creator} builds software for the fun of it and shares it in case it helps.`, path: '/about/', cur: 'about', image: site.portrait.src,
+  title: `About · ${site.name}`, desc: `${site.creator} builds software for the fun of it and shares it in case it helps.`, path: '/about/', cur: 'about', image: og('home'),
+  ld: { '@context': 'https://schema.org', '@type': 'Person', name: site.creator, url: `${site.url}/about/`, sameAs: [site.github] },
   body: `
 <section class="about">
   <div class="about-photo">
@@ -429,8 +480,9 @@ write('about/index.html', about());
 write('404.html', notFound());
 for (const p of products) write(`products/${p.slug}/index.html`, productPage(p));
 cpSync(join(root, 'media'), join(out, 'media'), { recursive: true });
-write('styles.css', readFileSync(join(root, 'src/styles.css'), 'utf8'));
-write('app.js', readFileSync(join(root, 'src/app.js'), 'utf8'));
+cpSync(join(root, 'fonts'), join(out, 'fonts'), { recursive: true });
+write(`assets/${assets.css}`, css);
+write(`assets/${assets.js}`, js);
 write('favicon.svg', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0d0c0a"/><circle cx="16" cy="16" r="7" fill="#f0a63a"/></svg>');
 write('robots.txt', `User-agent: *\nAllow: /\nSitemap: ${site.url}/sitemap.xml\n`);
 const urls = ['/', '/products/', '/about/', ...products.map((p) => `/products/${p.slug}/`)];
