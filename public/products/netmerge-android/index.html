@@ -19,7 +19,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.ff5c0680.css">
+<link rel="stylesheet" href="/assets/styles.6c14c39e.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NetMerge for Android","description":"An Android app that sends your phone's traffic over Wi-Fi and mobile data together, with more of it on whichever is faster.","url":"https://nisarworks.com/products/netmerge-android/","applicationCategory":"Networking","operatingSystem":"Android 10 and newer","softwareVersion":"0.1.0","author":{"@type":"Person","name":"Nisar Ahmad","url":"https://nisarworks.com/about/"}}</script>
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -45,8 +45,9 @@
       <h1>NetMerge for Android</h1>
       <p class="p-tag">Wi-Fi and mobile data, at the same time.</p>
       <p class="p-sum">An Android app that sends your phone's traffic over Wi-Fi and mobile data together, with more of it on whichever is faster.</p>
-      <div class="p-meta"><span class="status status-lab"><i></i>Test builds</span><span class="ver">v0.1.0</span><span>Android 10 and newer</span></div>
+      <div class="p-meta"><span class="status status-testing"><i></i>Testing</span><span class="ver">v0.1.0</span><span>Android 10 and newer</span></div>
       <div class="actions"><a class="btn btn-p" href="https://github.com/nisar87/netmerge-android/releases/tag/test-build"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>Get a test build</a><a class="btn" href="https://github.com/nisar87/netmerge-android">Source on GitHub</a></div>
+      <span class="motif" aria-hidden="true"><svg viewBox="0 0 220 60"><path class="m-blink" d="M10 26a22 22 0 0 1 30 0M16 33a13 13 0 0 1 18 0"/><circle cx="25" cy="42" r="3" class="m-fill"/><path class="m-2 m-blink m-late" d="M62 46v-6M70 46V34M78 46V26M86 46V18"/><path class="m-dash" d="M100 30H206M196 22l10 8-10 8"/></svg></span>
     </div>
     <div class="p-hero-art"><div class="phones" role="img" aria-label="NetMerge for Android on a phone: the combined speed gauge, live speed per network, and the speed test."><img src="/media/netmerge-android/home-merging.webp" width="540" height="1070" alt="" ><img src="/media/netmerge-android/home-networks-dark.webp" width="540" height="1070" alt="" ><img src="/media/netmerge-android/speed-test.webp" width="540" height="1070" alt="" ></div></div>
   </header>
@@ -55,6 +56,24 @@
   <p class="eyebrow">The problem</p>
   <h2 class="big">Your phone has two ways online and uses one.</h2>
   <div class="prose"><p>When Wi-Fi is connected, Android leaves mobile data idle, even when the Wi-Fi is slow or about to drop.</p><p>NetMerge for Android runs a VPN on the phone itself that sees every app's traffic. Each new connection goes out over Wi-Fi or mobile data, and the faster network gets more of them. Nothing is sent through a server of mine.</p></div>
+</section>
+<section class="s reveal">
+  <h2 class="h2">What it can and cannot do</h2>
+  <div class="explain">
+    <div class="explain-p good">
+      <h3>Apps that open many connections</h3>
+      <div class="conns" aria-hidden="true"><i class="c-a"></i><i class="c-a"></i><i class="c-a"></i><i class="c-b"></i><i class="c-a"></i><i class="c-a"></i><i class="c-a"></i><i class="c-b"></i></div>
+      <ul class="lines"><li class="l-a"><span>Wi-Fi</span><b></b><em>busy</em></li><li class="l-b"><span>Mobile</span><b></b><em>busy</em></li></ul>
+      <p>Downloads, app stores, browsers and streaming open many connections. Each new one is sent over Wi-Fi or mobile data, with more going to the faster network.</p>
+    </div>
+    <div class="explain-p">
+      <h3>One single connection</h3>
+      <div class="conns" aria-hidden="true"><i class="c-a"></i></div>
+      <ul class="lines"><li class="l-a"><span>Wi-Fi</span><b></b><em>busy</em></li><li class="l-b idle"><span>Mobile</span><b></b><em>idle</em></li></ul>
+      <p>A single connection stays on one network. NetMerge does not join two networks into one faster pipe, so it does not double your speed.</p>
+    </div>
+  </div>
+  <p class="note">A diagram of how connections are shared, not a screenshot.</p>
 </section>
 <section class="s s-gallery reveal" aria-label="A look inside">
   <div class="s-head"><h2 class="h2">A look inside</h2>
@@ -73,19 +92,25 @@
 <section class="s reveal">
   <h2 class="h2">What it does</h2>
   <ul class="feat feat-grid">
-    <li><span class="num">01</span><h3>Learns each network</h3><p>It works out how fast Wi-Fi and mobile data are from the traffic they carry, and shares new connections to match.</p></li><li><span class="num">02</span><h3>Survives a dropout</h3><p>When a network leaves, its connections are closed at once so apps reconnect on the one that still works. In tests a download stalled for under 3 seconds.</p></li><li><span class="num">03</span><h3>Mobile data only when it helps</h3><p>An optional setting lets mobile data go after a quiet minute and brings it back for big downloads.</p></li><li><span class="num">04</span><h3>A daily limit</h3><p>Set how much mobile data merging may use each day.</p></li><li><span class="num">05</span><h3>A built-in speed test</h3><p>It tests Wi-Fi alone, mobile data alone, then both together, so you can see the merged speed for yourself.</p></li><li><span class="num">06</span><h3>Ads and trackers blocked</h3><p>Optional block lists stop ads, trackers and harmful sites for every app while NetMerge is on.</p></li><li><span class="num">07</span><h3>A battery guard</h3><p>Merging can pause when the battery is low. Apps keep using the phone's normal network.</p></li><li><span class="num">08</span><h3>Leave apps out</h3><p>Pick apps that should not go through the merge.</p></li>
+    <li><span class="num">01</span><h3>Learns each network</h3><p>It works out how fast Wi-Fi and mobile data are from the traffic they carry, and shares new connections to match.</p></li><li><span class="num">02</span><h3>Survives a dropout</h3><p>When a network leaves, its connections are closed at once so apps reconnect on the one that still works. In tests a download stalled for under 3 seconds.</p></li><li><span class="num">03</span><h3>Mobile data only when it helps</h3><p>An optional setting lets mobile data go after a quiet minute and brings it back for big downloads.</p></li><li><span class="num">04</span><h3>A daily limit</h3><p>Set how much mobile data merging may use each day.</p></li><li><span class="num">05</span><h3>A built-in speed test</h3><p>It tests Wi-Fi alone, mobile data alone, then both together, so you can see the merged speed for yourself.</p></li><li><span class="num">06</span><h3>Ads and trackers blocked</h3><p>Optional block lists stop ads, trackers and harmful sites for every app while NetMerge is on.</p></li><li><span class="num">07</span><h3>A battery guard, in testing</h3><p>Merging can pause when the battery falls to a level you choose. Apps keep using the phone's normal network.</p></li><li><span class="num">08</span><h3>Leave apps out</h3><p>Pick apps that should not go through the merge.</p></li>
+  </ul>
+</section>
+<section class="s reveal">
+  <h2 class="h2">What it asks of your phone</h2>
+  <ul class="feat feat-rows">
+    <li><span class="num">01</span><h3>It runs as a VPN</h3><p>That is how one app can see and steer every other app's traffic. The VPN lives on the phone itself. Your traffic is not sent through a server of mine.</p></li><li><span class="num">02</span><h3>One VPN at a time</h3><p>Android allows a single VPN to be active, so NetMerge cannot run together with another VPN app.</p></li><li><span class="num">03</span><h3>Permissions</h3><p>Network access and network state, a notification while merging is on, and the VPN permission you approve on first start.</p></li><li><span class="num">04</span><h3>What it does not ask for</h3><p>No location, no contacts, no files, no account.</p></li>
   </ul>
 </section>
 <section class="s s-limits reveal">
   <h2 class="h2">Honest limits</h2>
-  <ul class="limits"><li>These are test builds, made for trying on a real phone. They are not a release and not meant for daily use yet.</li><li>One single connection still uses one network. The gain comes from apps that open many connections, such as downloads, app stores, browsers and streaming.</li><li>Merging uses mobile data. In the measured downloads, mobile data carried about a quarter of each file.</li><li>Test builds are signed with a public test key. A release will use a private one.</li></ul>
+  <ul class="limits"><li>It is in testing. The builds are made for trying on a real phone. They are not a release and not meant for daily use yet.</li><li>Tested on one phone, a Galaxy S26 Ultra. Other phones and carriers may behave differently.</li><li>Not yet tested on a real phone: a Wi-Fi network without internet, the always-on VPN after a restart, and overnight battery limits.</li><li>Merging uses mobile data, and keeping mobile data awake costs some battery. In the measured downloads, mobile data carried about a quarter of each file.</li><li>Test builds are signed with a public test key. A release will use a private one.</li></ul>
 </section>
 <section class="s reveal">
   <h2 class="h2">What you need</h2>
   <dl class="compat">
     <div><dt>Runs on</dt><dd>Android 10 and newer</dd></div><div><dt>Needs</dt><dd>Wi-Fi and mobile data, and permission to run a VPN on the phone</dd></div><div><dt>Tested on</dt><dd>A Galaxy S26 Ultra, and Android 14 and 15 emulators</dd></div>
     <div><dt>Current version</dt><dd><span class="ver">v0.1.0</span></dd></div>
-    <div><dt>Status</dt><dd><span class="status status-lab"><i></i>Test builds</span></dd></div>
+    <div><dt>Status</dt><dd><span class="status status-testing"><i></i>Testing</span></dd></div>
   </dl>
 </section>
   <section class="s s-cta reveal">
@@ -152,6 +177,6 @@
   </div>
   <p class="foot-loop" aria-hidden="true">notice <b>→</b> wonder <b>→</b> build <b>→</b> share <b>→</b> repeat</p>
 </footer>
-<script src="/assets/app.aa3befc7.js" defer></script>
+<script src="/assets/app.a8a23ed9.js" defer></script>
 </body>
 </html>

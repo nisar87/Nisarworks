@@ -2,13 +2,15 @@
 // To add a product: copy an entry, change its fields, put its images in media/<slug>/, run `node src/build.mjs`.
 // Section types a product page can use, in any order:
 //   problem, explainer, flow, features, figures, gallery, wall, say, routes, modes, video, install, limits, compat, aside
-// Status kinds: released | early | beta | live | lab
+// Status kinds: released | early | beta | live | testing | lab
 
 const gh = 'https://github.com/nisar87/';
 
 export const products = [
   {
     slug: 'netmerge',
+    annoyance: 'Two connections at home. One doing all the work.',
+    motif: 'flow',
     name: 'NetMerge',
     tagline: 'Every internet line you have, working at once.',
     summary: 'Puts your cable, Wi-Fi and hotspot to work together on Windows 11, so anything that opens many connections gets faster. No extra hardware, no paid service.',
@@ -60,7 +62,7 @@ export const products = [
           { title: 'It tells you when merging cannot help', text: 'If two lines leave through the same public address, NetMerge says so.' },
         ] },
       { type: 'aside', eyebrow: 'A separate product', title: 'On a phone? There is NetMerge for Android.',
-        body: 'It is its own app with its own engine: Wi-Fi and mobile data at the same time. It is in test builds.',
+        body: 'It is its own app with its own engine: Wi-Fi and mobile data at the same time. It is in testing.',
         link: { label: 'See NetMerge for Android', href: '/products/netmerge-android/' } },
       { type: 'limits', title: 'Honest limits', items: [
           'Two lines from the same provider usually cannot add speed.',
@@ -78,15 +80,18 @@ export const products = [
 
   {
     slug: 'netmerge-android',
+    annoyance: 'A phone with two ways online, using one.',
+    motif: 'signal',
     name: 'NetMerge for Android',
     tagline: 'Wi-Fi and mobile data, at the same time.',
     summary: 'An Android app that sends your phone\'s traffic over Wi-Fi and mobile data together, with more of it on whichever is faster.',
     category: 'Networking',
     platforms: ['Android'],
     platformNote: 'Android 10 and newer',
-    status: { kind: 'lab', label: 'Test builds' },
+    status: { kind: 'testing', label: 'Testing' },
     version: '0.1.0',
     versionFixed: true,
+    featured: true,
     repo: 'netmerge-android',
     accent: '#8ab4ff',
     accent2: '#5fd4c4',
@@ -102,6 +107,14 @@ export const products = [
         body: [
           'When Wi-Fi is connected, Android leaves mobile data idle, even when the Wi-Fi is slow or about to drop.',
           'NetMerge for Android runs a VPN on the phone itself that sees every app\'s traffic. Each new connection goes out over Wi-Fi or mobile data, and the faster network gets more of them. Nothing is sent through a server of mine.',
+        ] },
+      { type: 'explainer', title: 'What it can and cannot do', panels: [
+          { title: 'Apps that open many connections', good: true, conns: ['a', 'a', 'a', 'b', 'a', 'a', 'a', 'b'],
+            lines: [{ id: 'a', name: 'Wi-Fi', load: 1, note: 'busy' }, { id: 'b', name: 'Mobile', load: 1, note: 'busy' }],
+            text: 'Downloads, app stores, browsers and streaming open many connections. Each new one is sent over Wi-Fi or mobile data, with more going to the faster network.' },
+          { title: 'One single connection', conns: ['a'],
+            lines: [{ id: 'a', name: 'Wi-Fi', load: 1, note: 'busy' }, { id: 'b', name: 'Mobile', load: 0, note: 'idle' }],
+            text: 'A single connection stays on one network. NetMerge does not join two networks into one faster pipe, so it does not double your speed.' },
         ] },
       { type: 'gallery', title: 'A look inside', note: 'Screenshots from a Galaxy S26 Ultra.', items: [
           { src: 'netmerge-android/home-merging.webp', w: 540, h: 1070, phone: true, alt: 'Home screen with merging on and a combined speed gauge reading 98 Mbps.', caption: 'Merging on. One gauge for the combined speed.' },
@@ -124,13 +137,20 @@ export const products = [
           { title: 'A daily limit', text: 'Set how much mobile data merging may use each day.' },
           { title: 'A built-in speed test', text: 'It tests Wi-Fi alone, mobile data alone, then both together, so you can see the merged speed for yourself.' },
           { title: 'Ads and trackers blocked', text: 'Optional block lists stop ads, trackers and harmful sites for every app while NetMerge is on.' },
-          { title: 'A battery guard', text: 'Merging can pause when the battery is low. Apps keep using the phone\'s normal network.' },
+          { title: 'A battery guard, in testing', text: 'Merging can pause when the battery falls to a level you choose. Apps keep using the phone\'s normal network.' },
           { title: 'Leave apps out', text: 'Pick apps that should not go through the merge.' },
         ] },
+      { type: 'features', layout: 'rows', title: 'What it asks of your phone', items: [
+          { title: 'It runs as a VPN', text: 'That is how one app can see and steer every other app\'s traffic. The VPN lives on the phone itself. Your traffic is not sent through a server of mine.' },
+          { title: 'One VPN at a time', text: 'Android allows a single VPN to be active, so NetMerge cannot run together with another VPN app.' },
+          { title: 'Permissions', text: 'Network access and network state, a notification while merging is on, and the VPN permission you approve on first start.' },
+          { title: 'What it does not ask for', text: 'No location, no contacts, no files, no account.' },
+        ] },
       { type: 'limits', title: 'Honest limits', items: [
-          'These are test builds, made for trying on a real phone. They are not a release and not meant for daily use yet.',
-          'One single connection still uses one network. The gain comes from apps that open many connections, such as downloads, app stores, browsers and streaming.',
-          'Merging uses mobile data. In the measured downloads, mobile data carried about a quarter of each file.',
+          'It is in testing. The builds are made for trying on a real phone. They are not a release and not meant for daily use yet.',
+          'Tested on one phone, a Galaxy S26 Ultra. Other phones and carriers may behave differently.',
+          'Not yet tested on a real phone: a Wi-Fi network without internet, the always-on VPN after a restart, and overnight battery limits.',
+          'Merging uses mobile data, and keeping mobile data awake costs some battery. In the measured downloads, mobile data carried about a quarter of each file.',
           'Test builds are signed with a public test key. A release will use a private one.',
         ] },
       { type: 'compat', title: 'What you need', rows: [
@@ -143,6 +163,8 @@ export const products = [
 
   {
     slug: 'pullwell',
+    annoyance: 'A download that dies at 94%.',
+    motif: 'segments',
     name: 'Pullwell',
     tagline: 'Downloads that finish.',
     summary: 'A download manager for Windows that resumes after crashes and dropped connections, checks every finished file, and sends no telemetry.',
@@ -203,6 +225,8 @@ export const products = [
 
   {
     slug: 'ai-cv-studio',
+    annoyance: 'Good experience, hidden behind a tired CV.',
+    motif: 'pages',
     name: 'AI CV Studio',
     tagline: 'Your CV, redesigned in minutes.',
     summary: 'Upload the CV you have, or answer a few plain questions, and get a professional one you can edit and download as a PDF.',
@@ -261,6 +285,8 @@ export const products = [
 
   {
     slug: 'clearwrite',
+    annoyance: 'A spell check that wants my writing sent away.',
+    motif: 'proof',
     name: 'ClearWrite',
     tagline: 'A proofreader that stays on your PC.',
     summary: 'Checks spelling and grammar as you write in your usual Windows apps, on your own computer, with no account and no internet connection.',
@@ -324,6 +350,8 @@ export const products = [
 
   {
     slug: 'vox',
+    annoyance: 'Doing by hand what I could just say.',
+    motif: 'wave',
     name: 'Vox',
     tagline: 'Say it. Your PC does it.',
     summary: 'A voice assistant that runs your Windows 11 PC: say what you want, it does it, and it tells you what it did.',
@@ -394,7 +422,7 @@ export const products = [
 
 // Small things in progress that do not have their own page yet.
 export const lab = [
-  { name: 'NetMerge for Android', text: 'Wi-Fi and mobile data at the same time on a phone. Working test builds, not released.', href: '/products/netmerge-android/' },
+  { name: 'A battery guard for NetMerge for Android', text: 'Pause merging when the battery is low, and start again once it has charged.', href: '/products/netmerge-android/' },
   { name: 'A lighter engine for NetMerge', text: 'NetMerge carries its own smaller network engine. You can try it under Settings while the proven one stays the default.', href: '/products/netmerge/' },
   { name: 'A final name for Pullwell', text: '"Pullwell" is a working name, waiting on a trademark check.', href: '/products/pullwell/' },
 ];

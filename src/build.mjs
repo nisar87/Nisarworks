@@ -45,6 +45,17 @@ const frame = (img, { title = '', eager = false, cls = '', sizes = '(max-width: 
 </figure>`;
 };
 
+/* A small moving signature per product. Decorative only: it hints at what the product is about. */
+const motifs = {
+  flow: '<svg viewBox="0 0 220 60"><path class="m-dash" d="M4 12C70 12 80 30 130 30"/><path class="m-dash m-2" d="M4 48C70 48 80 30 130 30"/><path d="M130 30H206M196 22l10 8-10 8"/><circle cx="130" cy="30" r="4" class="m-fill"/></svg>',
+  signal: '<svg viewBox="0 0 220 60"><path class="m-blink" d="M10 26a22 22 0 0 1 30 0M16 33a13 13 0 0 1 18 0"/><circle cx="25" cy="42" r="3" class="m-fill"/><path class="m-2 m-blink m-late" d="M62 46v-6M70 46V34M78 46V26M86 46V18"/><path class="m-dash" d="M100 30H206M196 22l10 8-10 8"/></svg>',
+  segments: `<svg viewBox="0 0 220 60">${Array.from({ length: 12 }, (_, i) => `<rect class="m-seg" style="--d:${(i * 0.18).toFixed(2)}s" x="${6 + i * 17.6}" y="22" width="13" height="16" rx="3"/>`).join('')}</svg>`,
+  pages: '<svg viewBox="0 0 220 60"><g class="m-page" style="--d:0s"><rect x="10" y="6" width="36" height="48" rx="3"/><path d="M17 18h22M17 26h22M17 34h14"/></g><g class="m-page m-2" style="--d:.5s"><rect x="62" y="6" width="36" height="48" rx="3"/><path d="M69 16h10v10H69zM84 18h8M84 24h8M69 34h22M69 42h16"/></g><g class="m-page" style="--d:1s"><rect x="114" y="6" width="36" height="48" rx="3"/><path d="M114 20h36M121 30h22M121 38h22M121 46h12"/></g><g class="m-page m-2" style="--d:1.5s"><rect x="166" y="6" width="36" height="48" rx="3"/><path d="M178 6v48M184 18h12M184 26h12M184 34h8"/></g></svg>',
+  proof: '<svg viewBox="0 0 220 60"><path d="M8 20h60M84 20h44M144 20h30"/><path class="m-wavy m-2" d="M84 28q5.5-6 11 0t11 0 11 0 11 0"/><path d="M8 42h36M60 42h70"/><path class="m-check" d="M182 38l8 8 16-18"/></svg>',
+  wave: `<svg viewBox="0 0 220 60">${Array.from({ length: 22 }, (_, i) => `<path class="m-bar${i % 3 === 0 ? ' m-2' : ''}" style="--d:${(i * 0.07).toFixed(2)}s" d="M${10 + i * 9.5} ${(30 - (6 + 20 * Math.abs(Math.sin(i * 0.9)))).toFixed(1)}V${(30 + (6 + 20 * Math.abs(Math.sin(i * 0.9)))).toFixed(1)}"/>`).join('')}</svg>`,
+};
+const motif = (p) => (p.motif && motifs[p.motif] ? `<span class="motif" aria-hidden="true">${motifs[p.motif]}</span>` : '');
+
 /* Illustrations for products that have no screenshots yet. Always labelled. */
 const art = {
   clearwrite: `
@@ -306,6 +317,7 @@ const productPage = (p) => {
       <p class="p-sum">${esc(p.summary)}</p>
       <div class="p-meta">${status(p)}${version(p)}<span>${esc(p.platformNote)}</span></div>
       ${actions(p)}
+      ${motif(p)}
     </div>
     <div class="p-hero-art">${cover(p, { eager: true })}</div>
   </header>
@@ -349,25 +361,27 @@ const home = () => page({
     <p class="hero-sub">A home for the tools I build because I wanted them to exist. They are free to use, and a new one appears whenever an idea refuses to leave me alone.</p>
     <div class="actions"><a class="btn btn-p" href="/products/">See what I've built ${arrow}</a><a class="btn" href="/about/">Who makes these?</a></div>
   </div>
-  <div class="hero-stage" aria-hidden="true">
-    <div class="stage-a">${frame(byslug.netmerge.cover, { title: 'NetMerge', eager: true })}</div>
-    <div class="stage-b">${frame(byslug.pullwell.cover, { title: 'Pullwell' })}</div>
-    <img class="stage-c" src="${media('ai-cv-studio/vivid.webp')}" width="397" height="562" alt="" loading="lazy">
+  <div class="forge-wrap">
+    <div class="forge" aria-hidden="true"><canvas></canvas></div>
+    <div class="forge-fallback" aria-hidden="true">${products.map((p) => mark(p, 40)).join('')}</div>
+    <p class="forge-cap" aria-hidden="true"><span class="forge-q">Small annoyances</span><a class="forge-a" tabindex="-1" href="/products/">turned into software</a></p>
   </div>
+  <script type="application/json" id="forge-data">${JSON.stringify(products.map((p) => ({ name: p.name, slug: p.slug, accent: p.accent, mark: p.mark, q: p.annoyance }))).replace(/</g, '\\u003c')}</script>
 </section>
 
 <div class="ticker" aria-hidden="true"><div>${Array.from({ length: 4 }, () => products.map((p) => `<span>${esc(p.name)}</span><b>✳</b>`).join('')).join('')}</div></div>
 
-<section class="s features-home">
+<section class="s features-home" style="--n:${featured.length}">
   <div class="s-head"><h2 class="h2">Selected work</h2><a class="link" href="/products/">All ${products.length} products ${arrow}</a></div>
   ${featured.map((p, i) => `
-  <a class="showcase reveal${i % 2 ? ' flip' : ''}" href="/products/${p.slug}/" style="--p:${p.accent};--p2:${p.accent2}">
+  <a class="showcase reveal${i % 2 ? ' flip' : ''}" href="/products/${p.slug}/" style="--p:${p.accent};--p2:${p.accent2};--i:${i}">
     <div class="showcase-text">
       <div class="p-id">${mark(p, 36)}<span>${esc(p.category)}</span>${status(p)}</div>
       <h3>${esc(p.name)}</h3>
       <p class="p-tag">${esc(p.tagline)}</p>
       <p class="p-sum">${esc(p.summary)}</p>
       <span class="go">Explore ${esc(p.name)} ${arrow}</span>
+      ${motif(p)}
     </div>
     <div class="showcase-art">${cover(p)}</div>
   </a>`).join('')}
@@ -375,7 +389,7 @@ const home = () => page({
 
 <section class="s">
   <div class="s-head"><h2 class="h2">Also in the collection</h2></div>
-  <div class="grid grid-3">${rest.map((p) => card(p)).join('')}</div>
+  <div class="grid grid-${Math.min(3, rest.length)}">${rest.map((p) => card(p)).join('')}</div>
 </section>
 
 <section class="s s-lab reveal">
@@ -422,14 +436,18 @@ const productsPage = () => page({
 </section>`,
 });
 
+const loopArt = [
+  '<path d="M6 40h22q6 0 6-7t6-7 6 7-3 9 9-2h22"/><path class="a-spark" d="M40 12v6M31 15l3 5M49 15l-3 5"/>',
+  '<path d="M26 30c0-10 8-16 16-16s14 6 14 13c0 12-14 10-14 22"/><circle cx="42" cy="62" r="2.6" class="a-fill"/>',
+  '<rect x="12" y="40" width="22" height="22" rx="3"/><rect x="38" y="40" width="22" height="22" rx="3"/><rect class="a-drop" x="25" y="14" width="22" height="22" rx="3"/>',
+  '<path d="M14 34v26h40V44"/><path class="a-send" d="M34 40L62 12M44 12h18v18"/>',
+  '<path d="M58 30a22 22 0 1 0 4 16"/><path d="M60 14v16H44"/>',
+];
 const about = () => page({
   title: `About · ${site.name}`, desc: `${site.creator} builds software for the fun of it and shares it in case it helps.`, path: '/about/', cur: 'about', image: og('home'),
   ld: { '@context': 'https://schema.org', '@type': 'Person', name: site.creator, url: `${site.url}/about/`, sameAs: [site.github] },
   body: `
 <section class="about">
-  <div class="about-photo">
-    <img src="${media(site.portrait.src)}" width="${site.portrait.w}" height="${site.portrait.h}" alt="${esc(site.portrait.alt)}" fetchpriority="high">
-  </div>
   <div class="about-text">
     <p class="eyebrow">About</p>
     <h1>Hi, I'm Nisar. <em>Thanks for stopping by.</em></h1>
@@ -439,19 +457,33 @@ const about = () => page({
       <p>${site.name} is the home for all of it. It is not a company and it is not selling anything. It is where my software lives.</p>
     </div>
   </div>
-</section>
-
-<section class="s reveal">
-  <h2 class="h2">How it usually goes</h2>
-  <ol class="loop">${site.loop.map(([a, b], i) => `<li><span class="num">${String(i + 1).padStart(2, '0')}</span><h3>${esc(a)}</h3><p>${esc(b)}</p></li>`).join('')}</ol>
-</section>
-
-<section class="s s-problem reveal">
-  <p class="eyebrow">Why I share them</p>
-  <h2 class="big">Not every project needs a business plan. Some just need a good question and a free evening.</h2>
-  <div class="prose">
-    <p>Sometimes a problem is interesting, a solution seems possible, and building it is reward enough. Each product page says plainly what the software can and can't do yet.</p>
+  <div class="about-photo">
+    <div class="arch"><img src="${media(site.portrait.src)}" width="${site.portrait.w}" height="${site.portrait.h}" alt="${esc(site.portrait.alt)}" fetchpriority="high"></div>
+    <svg class="ring" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ring-p" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs><text><textPath href="#ring-p">notice · wonder · build · share · repeat · notice · wonder · build · share · repeat ·</textPath></text><circle cx="100" cy="100" r="13"/></svg>
   </div>
+</section>
+
+<section class="s story">
+  <div class="story-head reveal">
+    <p class="eyebrow">How it usually goes</p>
+    <h2 class="big">It starts tangled. <em>It ends as a tool.</em></h2>
+  </div>
+  <svg class="tangle" viewBox="0 0 120 70" aria-hidden="true"><path d="M8 20c20-18 44 8 26 22S6 30 30 16s52 6 40 26-44 2-24-14 50-4 46 12-22 14-32 10"/></svg>
+  <ol class="thread">${site.loop.map(([a, b], i) => `
+    <li class="reveal"><span class="node" aria-hidden="true"><svg viewBox="0 0 72 72">${loopArt[i]}</svg></span>
+      <div><span class="num">${String(i + 1).padStart(2, '0')}</span><h3>${esc(a)}</h3><p>${esc(b)}</p></div></li>`).join('')}
+  </ol>
+</section>
+
+<section class="s quote reveal">
+  <p class="eyebrow">Why I share them</p>
+  <blockquote>Not every project needs a business plan. <em>Some just need a good question and a free evening.</em></blockquote>
+  <p class="lede">Sometimes a problem is interesting, a solution seems possible, and building it is reward enough. Each product page says plainly what the software can and can't do yet.</p>
+</section>
+
+<section class="s shelf reveal">
+  <div class="s-head"><h2 class="h2">On the shelf so far</h2><a class="link" href="/products/">See them properly ${arrow}</a></div>
+  <ul>${products.map((p) => `<li><a href="/products/${p.slug}/" style="--p:${p.accent}">${mark(p, 44)}<span>${esc(p.name)}</span><small>${esc(p.annoyance)}</small></a></li>`).join('')}</ul>
 </section>
 
 <section class="s s-end reveal">
