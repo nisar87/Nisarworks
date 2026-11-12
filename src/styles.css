@@ -345,3 +345,16 @@ a:hover > .arr, a:hover .go .arr, .link:hover .arr { transform: translateX(4px);
   @view-transition { navigation: none; }
 }
 .card-cover:has(.art) { max-height: none; mask-image: none; }
+
+.status-lab i { background: transparent; border: 1.5px dashed var(--muted); }
+.art-nma { padding: 26px 22px 44px; }
+.art-nma svg { width: 100%; height: auto; }
+.art-nma .flow { stroke-dasharray: 10 12; animation: flow 1.4s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -22; } }
+.figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 28px; }
+.figures li { padding: 26px; border-radius: var(--r); border: 1px solid var(--line); background: var(--bg-2); display: grid; gap: 8px; }
+.figures li:last-child { border-color: color-mix(in srgb, var(--p) 45%, var(--line)); background: color-mix(in srgb, var(--p) 7%, var(--bg-2)); }
+.fig { font: 400 clamp(48px, 6vw, 76px)/1 var(--display); font-variant-numeric: tabular-nums; }
+.fig small { font: 500 15px var(--mono); color: var(--muted); margin-left: 6px; }
+.fig-l { color: var(--muted); font-size: 15.5px; }
+@media (max-width: 620px) { .figures { grid-template-columns: 1fr; } }

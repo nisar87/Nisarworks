@@ -17,7 +17,7 @@ const mark = (p, size = 48) =>
 const status = (p) => `<span class="status status-${p.status.kind}"><i></i>${esc(p.status.label)}</span>`;
 
 const version = (p) => p.version
-  ? `<span class="ver">v<span data-repo="${p.repo}"${p.prerelease ? ' data-pre' : ''}>${esc(p.version)}</span></span>` : '';
+  ? `<span class="ver">v<span${p.versionFixed ? '' : ` data-repo="${p.repo}"${p.prerelease ? ' data-pre' : ''}`}>${esc(p.version)}</span></span>` : '';
 
 const arrow = '<svg class="arr" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
 const icons = {
@@ -46,6 +46,21 @@ const art = {
   <span class="art-tag">Illustration, not a screenshot</span>
 </div>`,
 };
+
+art.nma = `
+<div class="art art-nma" role="img" aria-label="Illustration of a phone with a Wi-Fi line and a mobile data line joining into one.">
+  <svg viewBox="0 0 420 240" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <rect x="150" y="14" width="120" height="212" rx="20" stroke="var(--line)" stroke-width="2" fill="#151310"/>
+    <path class="flow" d="M10 70 C90 70 110 120 210 120" stroke="var(--p)" stroke-width="5"/>
+    <path class="flow" d="M10 170 C90 170 110 120 210 120" stroke="var(--p2)" stroke-width="5"/>
+    <path d="M210 120 H400" stroke="var(--ink)" stroke-width="5"/>
+    <path d="M388 108 l14 12 -14 12" stroke="var(--ink)" stroke-width="5"/>
+    <circle cx="210" cy="120" r="9" fill="var(--ink)"/>
+    <text x="10" y="54" fill="var(--p)" font-family="var(--mono)" font-size="13">Wi-Fi</text>
+    <text x="10" y="198" fill="var(--p2)" font-family="var(--mono)" font-size="13">Mobile data</text>
+  </svg>
+  <span class="art-tag">Illustration, not a screenshot</span>
+</div>`;
 
 const wall = (names, cls = '') => `
 <div class="wall ${cls}">${names.map((n) => `<img src="${media(`ai-cv-studio/${n}.webp`)}" width="397" height="562" alt="CV template preview: ${esc(n)}, with sample data." loading="lazy" decoding="async">`).join('')}</div>`;
@@ -177,6 +192,13 @@ const sec = {
   <div class="modes">${col(s.left, 'mode-a')}${col(s.right, 'mode-b')}</div>
 </section>`;
   },
+
+  figures: (s) => `
+<section class="s reveal">
+  <h2 class="h2">${esc(s.title)}</h2>
+  <ul class="figures">${s.items.map((f) => `<li><span class="fig">${esc(f.value)}<small>${esc(f.unit)}</small></span><span class="fig-l">${esc(f.label)}</span></li>`).join('')}</ul>
+  <p class="note">${esc(s.note)}</p>
+</section>`,
 
   video: (s) => `
 <section class="s reveal">

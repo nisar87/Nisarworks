@@ -1,7 +1,7 @@
 // Every product on the site is one entry in this list.
 // To add a product: copy an entry, change its fields, put its images in media/<slug>/, run `node src/build.mjs`.
 // Section types a product page can use, in any order:
-//   problem, features, gallery, wall, say, routes, modes, video, install, limits, compat, aside
+//   problem, features, figures, gallery, wall, say, routes, modes, video, install, limits, compat, aside
 // Status kinds: released | early | beta | live | lab
 
 const gh = 'https://github.com/nisar87/';
@@ -13,8 +13,8 @@ export const products = [
     tagline: 'Every internet line you have, working at once.',
     summary: 'Combines your cable, Wi-Fi and hotspot into one faster connection on Windows 11. No extra hardware, no paid service.',
     category: 'Networking',
-    platforms: ['Windows', 'Android'],
-    platformNote: 'Windows 11 · Android in test builds',
+    platforms: ['Windows'],
+    platformNote: 'Windows 11',
     status: { kind: 'released', label: 'Released' },
     version: '3.17.5',
     repo: 'netmerge',
@@ -51,9 +51,9 @@ export const products = [
           { title: 'Dead lines step aside', text: 'A line without internet is left out until it works again.' },
           { title: 'It tells you when merging cannot help', text: 'If two lines leave through the same public address, NetMerge says so.' },
         ] },
-      { type: 'aside', eyebrow: 'On the bench', title: 'NetMerge for Android',
-        body: 'The same idea on a phone: Wi-Fi and mobile data at the same time. It runs as working test builds and is not released. On a Galaxy S26 Ultra with two fast networks, many-connection downloads measured about 38% faster, and dropping a network mid-download stalled it for under 3 seconds.',
-        link: { label: 'Get a test build', href: gh + 'netmerge-android/releases/tag/test-build' } },
+      { type: 'aside', eyebrow: 'A separate product', title: 'On a phone? There is NetMerge for Android.',
+        body: 'It is its own app with its own engine: Wi-Fi and mobile data at the same time. It is in test builds.',
+        link: { label: 'See NetMerge for Android', href: '/products/netmerge-android/' } },
       { type: 'limits', title: 'Honest limits', items: [
           'One single connection can only use one line. A single-stream speed test shows one line\'s speed. The gain comes from many connections at once.',
           'Two lines from the same provider usually cannot add speed.',
@@ -65,6 +65,60 @@ export const products = [
           ['Needs', 'Administrator rights, and two or more active connections'],
           ['Engine', 'mihomo (open source), fetched on first start'],
           ['Licence', 'MIT'],
+        ] },
+    ],
+  },
+
+  {
+    slug: 'netmerge-android',
+    name: 'NetMerge for Android',
+    tagline: 'Wi-Fi and mobile data, at the same time.',
+    summary: 'An Android app that sends your phone\'s traffic over Wi-Fi and mobile data together, with more of it on whichever is faster.',
+    category: 'Networking',
+    platforms: ['Android'],
+    platformNote: 'Android 10 and newer',
+    status: { kind: 'lab', label: 'Test builds' },
+    version: '0.1.0',
+    versionFixed: true,
+    repo: 'netmerge-android',
+    accent: '#8ab4ff',
+    accent2: '#5fd4c4',
+    mark: '<rect x="14" y="8" width="20" height="32" rx="4"/><path d="M19 19c4 0 4 5 7 5M19 29c4 0 4-5 7-5h3"/>',
+    cover: { art: 'nma' },
+    hero: 'split',
+    actions: [
+      { label: 'Get a test build', href: gh + 'netmerge-android/releases/tag/test-build', kind: 'download' },
+      { label: 'Source on GitHub', href: gh + 'netmerge-android' },
+    ],
+    sections: [
+      { type: 'problem', eyebrow: 'The problem', title: 'Your phone has two ways online and uses one.',
+        body: [
+          'When Wi-Fi is connected, Android leaves mobile data idle, even when the Wi-Fi is slow or about to drop.',
+          'NetMerge for Android runs a VPN on the phone itself that sees every app\'s traffic. Each new connection goes out over Wi-Fi or mobile data, and the faster network gets more of them. Nothing is sent through a server of mine.',
+        ] },
+      { type: 'figures', title: 'What I measured', note: 'Three rounds on a Galaxy S26 Ultra with home Wi-Fi and 4G: one 140 MB file over 16 connections. Single runs vary, and your networks will differ.', items: [
+          { value: '61.7', unit: 'Mbps', label: 'Merging off, Wi-Fi alone' },
+          { value: '85.2', unit: 'Mbps', label: 'Merging on, Wi-Fi and mobile data' },
+          { value: '+38', unit: '%', label: 'Average gain' },
+        ] },
+      { type: 'features', layout: 'grid', title: 'What it does', items: [
+          { title: 'Learns each network', text: 'It works out how fast Wi-Fi and mobile data are from the traffic they carry, and shares new connections to match.' },
+          { title: 'Survives a dropout', text: 'When a network leaves, its connections are closed at once so apps reconnect on the one that still works. In tests a download stalled for under 3 seconds.' },
+          { title: 'Mobile data only when it helps', text: 'An optional setting lets mobile data go after a quiet minute and brings it back for big downloads.' },
+          { title: 'A daily limit', text: 'Set how much mobile data merging may use each day.' },
+          { title: 'Live speed per network', text: 'The main screen shows what Wi-Fi and mobile data are each carrying.' },
+          { title: 'A quick settings tile', text: 'Switch merging on and off from the notification shade.' },
+        ] },
+      { type: 'limits', title: 'Honest limits', items: [
+          'These are test builds, made for trying on a real phone. They are not a release and not meant for daily use yet.',
+          'One single connection still uses one network. The gain comes from apps that open many connections, such as downloads, app stores, browsers and streaming.',
+          'Merging uses mobile data. In the measured downloads, mobile data carried about a quarter of each file.',
+          'Test builds are signed with a public test key. A release will use a private one.',
+        ] },
+      { type: 'compat', title: 'What you need', rows: [
+          ['Runs on', 'Android 10 and newer'],
+          ['Needs', 'Wi-Fi and mobile data, and permission to run a VPN on the phone'],
+          ['Tested on', 'A Galaxy S26 Ultra, and Android 14 and 15 emulators'],
         ] },
     ],
   },
@@ -304,7 +358,7 @@ export const products = [
 
 // Small things in progress that do not have their own page yet.
 export const lab = [
-  { name: 'NetMerge for Android', text: 'Wi-Fi and mobile data at the same time on a phone. Working test builds, not released.', href: '/products/netmerge/#bench' },
+  { name: 'NetMerge for Android', text: 'Wi-Fi and mobile data at the same time on a phone. Working test builds, not released.', href: '/products/netmerge-android/' },
   { name: 'A lighter engine for NetMerge', text: 'NetMerge carries its own smaller network engine. You can try it under Settings while the proven one stays the default.', href: '/products/netmerge/' },
   { name: 'A final name for Pullwell', text: '"Pullwell" is a working name, waiting on a trademark check.', href: '/products/pullwell/' },
 ];
