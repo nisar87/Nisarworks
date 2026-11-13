@@ -20,7 +20,7 @@
 <link rel="preload" href="/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/styles.0420994c.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NetMerge for Android","description":"An Android app that sends your phone's traffic over Wi-Fi and mobile data together, with more of it on whichever is faster.","url":"https://nisarworks.com/products/netmerge-android/","applicationCategory":"Networking","operatingSystem":"Android 10 and newer","softwareVersion":"0.2.0-beta.2","author":{"@type":"Person","name":"Nisar Ahmad","url":"https://nisarworks.com/about/"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"NetMerge for Android","description":"An Android app that sends your phone's traffic over Wi-Fi and mobile data together, with more of it on whichever is faster.","url":"https://nisarworks.com/products/netmerge-android/","applicationCategory":"Networking","operatingSystem":"Android 10 and newer","softwareVersion":"0.2.0-beta.4","author":{"@type":"Person","name":"Nisar Ahmad","url":"https://nisarworks.com/about/"}}</script>
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body style="--p:#8ab4ff;--p2:#5fd4c4">
@@ -45,7 +45,7 @@
       <h1>NetMerge for Android</h1>
       <p class="p-tag">Wi-Fi and mobile data, at the same time.</p>
       <p class="p-sum">An Android app that sends your phone's traffic over Wi-Fi and mobile data together, with more of it on whichever is faster.</p>
-      <div class="p-meta"><span class="status status-beta"><i></i>Beta</span><span class="ver">v0.2.0-beta.2</span><span>Android 10 and newer</span></div>
+      <div class="p-meta"><span class="status status-beta"><i></i>Beta</span><span class="ver">v0.2.0-beta.4</span><span>Android 10 and newer</span></div>
       <div class="actions"><a class="btn btn-p" href="https://github.com/nisar87/netmerge-android/releases"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M4.5 7 8 10.5 11.5 7M3 13.5h10"/></svg>Download the beta</a><a class="btn" href="https://github.com/nisar87/netmerge-android">Source on GitHub</a></div>
       <span class="motif" aria-hidden="true"><svg viewBox="0 0 220 60"><path class="m-blink" d="M10 26a22 22 0 0 1 30 0M16 33a13 13 0 0 1 18 0"/><circle cx="25" cy="42" r="3" class="m-fill"/><path class="m-2 m-blink m-late" d="M62 46v-6M70 46V34M78 46V26M86 46V18"/><path class="m-dash" d="M100 30H206M196 22l10 8-10 8"/></svg></span>
     </div>
@@ -110,12 +110,12 @@
 <section class="s reveal">
   <h2 class="h2">How it has been tested</h2>
   <ul class="feat feat-rows">
-    <li><span class="num">01</span><h3>On my own phone</h3><p>A Galaxy S26 Ultra on Android 17, with real Wi-Fi and real mobile data. Every feature was run, including a restart with Always-on VPN, 20 fast starts and stops, and a 3-hour session. All pass after the fixes.</p></li><li><span class="num">02</span><h3>On other makers' phones</h3><p>A Galaxy S22, a Pixel 8a, a Motorola razr plus 2024 and an Oppo (Android 13 to 16), plus two virtual phones, in Firebase Test Lab. Those phones have Wi-Fi only, so this checks that the app starts, the VPN comes up and pages open. It does not check merging.</p></li><li><span class="num">03</span><h3>One failure, still open</h3><p>On a Xiaomi 14 the test could not open the app, because the phone blocks one app from opening another. The test has been changed and a rerun is pending.</p></li><li><span class="num">04</span><h3>On every change</h3><p>Android 14 and 15 emulators with Wi-Fi and mobile data run the full set of checks.</p></li><li><span class="num">05</span><h3>What the tests caught</h3><p>Nine bugs so far, all fixed. One left the phone with no internet after a restart, and one stopped websites opening when mobile data was very slow.</p></li>
+    <li><span class="num">01</span><h3>On my own phone</h3><p>A Galaxy S26 Ultra on Android 17, with real Wi-Fi and real mobile data. Every feature was run, including a restart with Always-on VPN, 20 fast starts and stops, and a 3-hour session. All pass after the fixes.</p></li><li><span class="num">02</span><h3>On other makers' phones</h3><p>A Galaxy S22, a Pixel 8a, a Motorola razr plus 2024, an Oppo and a Xiaomi 14 (Android 13 to 16), plus two virtual phones, in Firebase Test Lab. All pass. Those phones have Wi-Fi only, so this checks that the app starts, the VPN comes up and pages open. It does not check merging.</p></li><li><span class="num">03</span><h3>On every change</h3><p>Android 14 and 15 emulators with Wi-Fi and mobile data run the full set of checks.</p></li><li><span class="num">04</span><h3>What the tests caught</h3><p>Every bug found so far is fixed. One left the phone with no internet after a restart, one stopped websites opening when mobile data was very slow, and with a large font the numbers on the speed dial overlapped.</p></li>
   </ul>
 </section>
 <section class="s reveal">
   <h2 class="h2">How to install the beta</h2>
-  <ol class="steps"><li>On the phone, open the download page and pick the file ending in arm64-v8a.apk. It suits most phones. The one named universal works on any.</li><li>When Android asks, allow your browser to install apps.</li><li>If you installed a test build before, uninstall it first. The beta is signed with a different key.</li></ol>
+  <ol class="steps"><li>On the phone, open the download page and pick the file ending in arm64-v8a.apk. It suits most phones. The one named universal works on any.</li><li>When Android asks, allow your browser to install apps.</li><li>If you installed a test build before, uninstall it first. The beta is signed with a different key.</li><li>After that, each new beta installs over the last one and keeps your settings. NetMerge tells you when one is out.</li></ol>
 </section>
 <section class="s reveal">
   <h2 class="h2">What it asks of your phone</h2>
@@ -130,8 +130,8 @@
 <section class="s reveal">
   <h2 class="h2">What you need</h2>
   <dl class="compat">
-    <div><dt>Runs on</dt><dd>Android 10 and newer</dd></div><div><dt>Needs</dt><dd>Wi-Fi and mobile data, and permission to run a VPN on the phone</dd></div><div><dt>Tested on</dt><dd>Five real phone models (Android 13 to 17), and virtual phones on Android 10 and 14</dd></div><div><dt>Built for</dt><dd>Android 16, as Google Play requires</dd></div>
-    <div><dt>Current version</dt><dd><span class="ver">v0.2.0-beta.2</span></dd></div>
+    <div><dt>Runs on</dt><dd>Android 10 and newer</dd></div><div><dt>Needs</dt><dd>Wi-Fi and mobile data, and permission to run a VPN on the phone</dd></div><div><dt>Tested on</dt><dd>Seven real phone models (Android 13 to 17), and virtual phones on Android 10 and 14</dd></div><div><dt>Built for</dt><dd>Android 16, as Google Play requires</dd></div>
+    <div><dt>Current version</dt><dd><span class="ver">v0.2.0-beta.4</span></dd></div>
     <div><dt>Status</dt><dd><span class="status status-beta"><i></i>Beta</span></dd></div>
   </dl>
 </section></div></div>

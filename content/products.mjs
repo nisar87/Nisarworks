@@ -59,13 +59,14 @@ export const products = [
           { title: 'A role for every line', text: 'Use a line always, only when the others are busy, or only as a backup. Handy for a hotspot with limited data.' },
           { title: 'Calls stay steady', text: 'Meeting apps are kept on one line, and new downloads move to the others while you are on a call.' },
           { title: 'Ads and trackers blocked', text: 'Optional blocking with downloadable filter lists.' },
-          { title: 'Dead lines step aside', text: 'A line without internet is left out until it works again.' },
-          { title: 'It tells you when merging cannot help', text: 'If two lines leave through the same public address, NetMerge says so.' },
+          { title: 'A speed test made for merged lines', text: 'It measures each line alone, all lines together, and then through NetMerge with 1 to 32 downloads at once, which is how real apps use the network.' },
+          { title: 'Honest about your lines', text: 'A line without internet is left out until it works again. If two lines leave through the same public address, NetMerge tells you merging cannot help.' },
         ] },
       { type: 'aside', eyebrow: 'A separate product', title: 'On a phone? There is NetMerge for Android.',
         body: 'It is its own app with its own engine: Wi-Fi and mobile data at the same time. It is in beta.',
         link: { label: 'See NetMerge for Android', href: '/products/netmerge-android/' } },
       { type: 'limits', title: 'Honest limits', items: [
+          'Website and app speed tests often download over one connection, so they show one line\'s speed. To see what merging gives you, use the speed test under Connections.',
           'Two lines from the same provider usually cannot add speed.',
           'Other firewall or VPN drivers can conflict with NetMerge\'s virtual adapter. It warns you if it finds one.',
           'The app is not code-signed yet, so Windows asks you to confirm the first run.',
@@ -73,7 +74,7 @@ export const products = [
       { type: 'compat', title: 'What you need', rows: [
           ['Runs on', 'Windows 11, 64-bit'],
           ['Needs', 'Administrator rights, and two or more active connections'],
-          ['Engine', 'mihomo (open source), fetched on first start'],
+          ['Engine', 'Its own, built into the program. Nothing else is downloaded.'],
           ['Licence', 'MIT'],
         ] },
     ],
@@ -155,15 +156,15 @@ export const products = [
         ] },
       { type: 'features', layout: 'rows', title: 'How it has been tested', items: [
           { title: 'On my own phone', text: 'A Galaxy S26 Ultra on Android 17, with real Wi-Fi and real mobile data. Every feature was run, including a restart with Always-on VPN, 20 fast starts and stops, and a 3-hour session. All pass after the fixes.' },
-          { title: 'On other makers\' phones', text: 'A Galaxy S22, a Pixel 8a, a Motorola razr plus 2024 and an Oppo (Android 13 to 16), plus two virtual phones, in Firebase Test Lab. Those phones have Wi-Fi only, so this checks that the app starts, the VPN comes up and pages open. It does not check merging.' },
-          { title: 'One failure, still open', text: 'On a Xiaomi 14 the test could not open the app, because the phone blocks one app from opening another. The test has been changed and a rerun is pending.' },
+          { title: 'On other makers\' phones', text: 'A Galaxy S22, a Pixel 8a, a Motorola razr plus 2024, an Oppo and a Xiaomi 14 (Android 13 to 16), plus two virtual phones, in Firebase Test Lab. All pass. Those phones have Wi-Fi only, so this checks that the app starts, the VPN comes up and pages open. It does not check merging.' },
           { title: 'On every change', text: 'Android 14 and 15 emulators with Wi-Fi and mobile data run the full set of checks.' },
-          { title: 'What the tests caught', text: 'Nine bugs so far, all fixed. One left the phone with no internet after a restart, and one stopped websites opening when mobile data was very slow.' },
+          { title: 'What the tests caught', text: 'Every bug found so far is fixed. One left the phone with no internet after a restart, one stopped websites opening when mobile data was very slow, and with a large font the numbers on the speed dial overlapped.' },
         ] },
       { type: 'install', title: 'How to install the beta', items: [
           'On the phone, open the download page and pick the file ending in arm64-v8a.apk. It suits most phones. The one named universal works on any.',
           'When Android asks, allow your browser to install apps.',
           'If you installed a test build before, uninstall it first. The beta is signed with a different key.',
+          'After that, each new beta installs over the last one and keeps your settings. NetMerge tells you when one is out.',
         ] },
       { type: 'features', layout: 'rows', title: 'What it asks of your phone', items: [
           { title: 'It runs as a VPN', text: 'That is how one app can see and steer every other app\'s traffic. The VPN lives on the phone itself. Your traffic is not sent through a server of mine.' },
@@ -185,7 +186,7 @@ export const products = [
       { type: 'compat', title: 'What you need', rows: [
           ['Runs on', 'Android 10 and newer'],
           ['Needs', 'Wi-Fi and mobile data, and permission to run a VPN on the phone'],
-          ['Tested on', 'Five real phone models (Android 13 to 17), and virtual phones on Android 10 and 14'],
+          ['Tested on', 'Seven real phone models (Android 13 to 17), and virtual phones on Android 10 and 14'],
           ['Built for', 'Android 16, as Google Play requires'],
         ] },
     ],
@@ -234,7 +235,7 @@ export const products = [
           { title: 'One file, no installer', text: 'No administrator prompt. It updates itself, checks each update against its fingerprint, and can go back to the previous version.' },
           { title: 'Nothing phones home', text: 'No telemetry. Settings and the download list sit in a folder next to the program.' },
         ] },
-      { type: 'gallery', title: 'A look inside', note: 'Screenshots of version 0.10.0.', items: [
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots of version 0.10.0, with sample downloads.', items: [
           { src: 'pullwell/main-light.webp', w: 1280, h: 720, alt: 'Pullwell main window in light mode.', caption: 'The main window: navigation, live transfers and the list of downloads.' },
           { src: 'pullwell/progress.webp', w: 1280, h: 720, alt: 'Pullwell progress view for one download.', caption: 'One download up close: speed, time left, connections and the parts of the file.' },
           { src: 'pullwell/options.webp', w: 1280, h: 720, alt: 'Pullwell options window.', caption: 'Options.' },
@@ -242,7 +243,6 @@ export const products = [
           { src: 'pullwell/main-dark.webp', w: 1280, h: 720, alt: 'Pullwell main window in dark mode.', caption: 'Dark mode.' },
         ] },
       { type: 'limits', title: 'Honest limits', items: [
-          '"Pullwell" is a working name and may change after a trademark check.',
           'These are the first public versions. They are in daily use, and rough edges are likely.',
           'The program is not code-signed yet, so Windows asks you to confirm the first run.',
         ] },
@@ -291,21 +291,27 @@ export const products = [
           { src: 'ai-cv-studio/download-health-check.webp', w: 1440, h: 900, alt: 'A final check of the CV before download.', caption: 'A last check before you download.' },
           { src: 'ai-cv-studio/mobile-home.webp', w: 540, h: 779, alt: 'AI CV Studio on a phone.', caption: 'It works on a phone too.' },
         ] },
-      { type: 'wall', title: 'Designs to start from', note: 'Template previews with sample data.', items: [
+      { type: 'wall', title: 'Designs to start from', note: 'Eight of the 32 designs, shown with sample data.', items: [
           ['atelier', 'Atelier'], ['vivid', 'Vivid'], ['clarity', 'Clarity'], ['meridian', 'Meridian'],
           ['heritage', 'Heritage'], ['folio', 'Folio'], ['halo', 'Halo'], ['ledger', 'Ledger'],
         ] },
       { type: 'features', layout: 'grid', title: 'What it does', items: [
           { title: 'Starts from your CV', text: 'Upload a PDF, a Word file or a photo of a printed page.' },
           { title: 'Or from a conversation', text: 'Say what kind of work you do and answer a few questions in plain language.' },
+          { title: '32 designs in 8 families', text: 'Clean, Classic, Sidebar, Editorial, Timeline, Bold, Portrait and Compact grid. The gallery shows each one with your own CV.' },
+          { title: 'Describe the design you imagine', text: 'Say it in words, such as "two columns, navy, skills on the left", and get three versions of your own CV to choose from. Then change details in words.' },
           { title: 'Writing help that does not invent', text: 'It improves your wording. It does not add jobs, dates, qualifications or numbers you did not give it.' },
-          { title: 'Yours to change', text: 'Switch the design, colours and fonts, and edit any line.' },
-          { title: 'Readable by hiring software', text: 'The designs keep real text in the PDF, so applicant tracking systems can read it.' },
-          { title: 'Saved where you are', text: 'Drafts stay in your browser, with a backup file you can download.' },
+          { title: 'A check before you download', text: 'It points out missing contact details, weak bullets, date problems and pages that do not fit, and takes you to the exact field.' },
+          { title: 'Readable by hiring software', text: 'Every design has a version made for online applications, and the PDF keeps real text.' },
+          { title: 'PDF and Word', text: 'Download a PDF, or a Word file that opens cleanly in Word and Google Docs.' },
+          { title: 'Help with the job hunt', text: 'A tracker for the jobs you apply to, cover letters with a covering email, a match against the job advert, and interview practice.' },
         ] },
       { type: 'limits', title: 'Good to know', items: [
-          'You can see your new CV without signing in. Downloading the PDF needs a free account.',
-          'A paid Premium plan is planned and is not open yet.',
+          'You can see your new CV without signing in. Downloading it needs a free account.',
+          'Eight of the 32 designs are free, one in each family. The others need the paid Premium plan, and so do designs you make by describing them.',
+          'The job tracker is free for up to three jobs. Matching your CV to an advert and interview practice are part of Premium.',
+          'When you describe a design, only figures about your CV, such as how long it is, go to the AI. The text of your CV does not.',
+          'It works with Latin scripts only for now.',
         ] },
       { type: 'compat', title: 'What you need', rows: [
           ['Runs on', 'Any modern browser, on a computer or a phone'],
@@ -351,8 +357,8 @@ export const products = [
           { from: 'recieve', to: 'receive', why: 'Possible spelling mistake.', kind: 'sp' },
           { from: 'were', to: 'was', why: 'Use was with it.', kind: 'gr' },
         ],
-        note: 'The sentence and both suggestions come from ClearWrite\'s own panel, shown in the first screenshot below. Each fix waits for you to accept it. Notice that "to large" was left alone: the on-device check catches common mistakes, not all of them.' },
-      { type: 'gallery', title: 'A look inside', note: 'Screenshots of the current beta.', items: [
+        note: 'The sentence and both suggestions come from ClearWrite\'s own panel, shown in the first screenshot below, which uses sample text. Each fix waits for you to accept it. Notice that "to large" was left alone: the on-device check catches common mistakes, not all of them.' },
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots of the current beta, with sample data.', items: [
           { src: 'clearwrite/panel-light.webp', w: 380, h: 560, alt: 'ClearWrite side panel showing a sentence with two suggested fixes.', caption: 'The panel: your text, the fix, and a reason for each change.' },
           { src: 'clearwrite/home-dark.webp', w: 1280, h: 860, alt: 'ClearWrite home page in dark mode.', caption: 'Home. What was fixed today and over the last 30 days.' },
           { src: 'clearwrite/suggestion-card-light.webp', w: 300, h: 165, alt: 'A small card under a misspelled word offering the correct spelling.', caption: 'The card under a misspelled word.' },
@@ -411,7 +417,7 @@ export const products = [
       { label: 'Source on GitHub', href: gh + 'Vox' },
     ],
     sections: [
-      { type: 'transcript', title: 'Said, and done', note: 'These four exchanges are from the Talk screen in the screenshot further down.', items: [
+      { type: 'transcript', title: 'Said, and done', note: 'These four exchanges are the ones on the Talk screen in the screenshot further down, which uses sample data.', items: [
           { said: 'Hi Vox, open Notepad++ and write a few lines about education in a new tab.', did: 'Written in Notepad++.', time: '780 ms', route: 'Live conversation', bar: [0, 100, 0] },
           { said: 'I want to see Pakistan vs Sri Lanka match highlights on YouTube.', did: 'Searching YouTube for pakistan vs sri lanka match highlights.', time: '1.4 s', route: 'Instant, no AI needed', bar: [95, 0, 5] },
           { said: 'Clear out desktop things older than 20 days into archive.', did: 'Moved 14 items into Archive. I went by the last time each was opened or changed.', time: '1.6 s', route: 'Learned earlier, no AI needed', bar: [95, 0, 5] },
@@ -429,7 +435,7 @@ export const products = [
           { name: 'It does every step', text: 'Files are moved, never overwritten.' },
           { name: 'It tells you what it did', text: 'With how long hearing, thinking and doing each took. "Undo that" puts files back.' },
         ] },
-      { type: 'gallery', title: 'A look inside', note: 'Screenshots of version 0.4.3.', items: [
+      { type: 'gallery', title: 'A look inside', note: 'Screenshots of version 0.4.4, with sample data.', items: [
           { src: 'vox/talk.webp', w: 1440, h: 1073, alt: 'The Vox Talk screen.', caption: 'Talk. What you said, what Vox did, and how long each part took.' },
           { src: 'vox/learned.webp', w: 1440, h: 1073, alt: 'The Vox Learned screen listing remembered commands.', caption: 'Learned. Commands Vox can now do without the AI.' },
           { src: 'vox/settings.webp', w: 1440, h: 1073, alt: 'The Vox settings screen with AI model and hearing options.', caption: 'Settings. Your AI model, and how Vox hears you.' },
@@ -461,7 +467,7 @@ export const products = [
 
 // Small things in progress that do not have their own page yet.
 export const lab = [
-  { name: 'More phones for NetMerge for Android', text: 'The beta is out. So far it has only run on my own phone and in a test lab, so reports from other phones are what it needs next.', href: '/products/netmerge-android/' },
-  { name: 'A lighter engine for NetMerge', text: 'NetMerge carries its own smaller network engine. You can try it under Settings while the proven one stays the default.', href: '/products/netmerge/' },
-  { name: 'A final name for Pullwell', text: '"Pullwell" is a working name, waiting on a trademark check.', href: '/products/pullwell/' },
+  { name: 'More phones for NetMerge for Android', text: 'The beta is out. So far it has only run on my own phones and in a test lab, so reports from other phones are what it needs next. Google Play comes after that.', href: '/products/netmerge-android/' },
+  { name: 'One studio for AI CV Studio', text: 'Documents, jobs and letters are moving into one place. The first part is live. A documents hub and a letter library come next.', href: '/products/ai-cv-studio/' },
+  { name: 'Vox that learns from its mistakes', text: 'Today a failed plan is forgotten. Next it should remember why it failed and what I corrected it to.', href: '/products/vox/' },
 ];
