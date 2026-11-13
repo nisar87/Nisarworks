@@ -315,12 +315,19 @@ const sec = {
   <p class="note">${esc(s.note)}</p>
 </section>`,
 
-  video: (s) => `
-<section class="s reveal">
+  video: (s, p) => `
+<section class="s reveal s-video">
+  ${s.eyebrow ? `<p class="eyebrow">${esc(s.eyebrow)}</p>` : ''}
   <h2 class="h2">${esc(s.title)}</h2>
-  ${s.src
-    ? `<video class="video" src="${media(s.src)}" ${s.poster ? `poster="${media(s.poster)}"` : ''} muted loop playsinline controls preload="metadata"></video>`
-    : `<div class="video placeholder"><span>No recording yet</span></div>`}
+  ${s.src ? `
+  <div class="v-grid">
+    <figure class="frame v-frame">
+      <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(p.name)}</span></div>
+      <video src="${media(s.src)}" poster="${media(s.poster)}" width="${s.w}" height="${s.h}" controls playsinline preload="none" aria-label="${esc(s.label || s.title)}"></video>
+    </figure>
+    ${s.chapters ? `<ol class="chapters">${s.chapters.map((c) => `<li>${esc(c)}</li>`).join('')}</ol>` : ''}
+  </div>` : `<div class="video placeholder"><span>No recording yet</span></div>`}
+  ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
 </section>`,
 
   install: (s) => `
@@ -392,7 +399,12 @@ const productPage = (p) => {
       ${actions(p)}
       ${motif(p)}
     </div>
-    <div class="p-hero-art">${cover(p, { eager: true })}</div>
+    <div class="p-hero-art">${p.loop ? `
+      <figure class="frame">
+        <div class="frame-bar" aria-hidden="true"><i></i><i></i><i></i><span>${esc(p.name)}</span></div>
+        <video class="loop" src="${media(p.loop.src)}" poster="${media(p.loop.poster)}" width="${p.loop.w}" height="${p.loop.h}" autoplay muted loop playsinline aria-label="${esc(p.loop.alt)}"></video>
+      </figure>
+      <p class="note">${esc(p.loop.note)}</p>` : cover(p, { eager: true })}</div>
   </header>
   ${renderSections(p)}
   <section class="s s-cta reveal">

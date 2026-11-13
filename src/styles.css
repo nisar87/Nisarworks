@@ -802,3 +802,14 @@ html:not(.js) .g-progress { display: none; }
   .seg-state i { opacity: 0; } .seg-state i:nth-child(4) { opacity: 1; }
 }
 @media (min-width: 981px) { .seg-bar span { height: 64px; } .seg-art { padding: 34px; } }
+
+/* video */
+.frame video { display: block; width: 100%; height: auto; background: #0a0908; }
+.s-video .h2 { margin-top: 10px; }
+.v-grid { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: 36px; align-items: start; margin-top: 28px; }
+.chapters { counter-reset: ch; display: grid; }
+.chapters li { counter-increment: ch; display: grid; grid-template-columns: 30px 1fr; gap: 10px; padding: 11px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 15.5px; }
+.chapters li:last-child { border-bottom: 1px solid var(--line); }
+.chapters li::before { content: counter(ch); font: 12px/1.9 var(--mono); color: var(--p); }
+.p-hero-art .note { margin-top: 12px; }
+@media (max-width: 980px) { .v-grid { grid-template-columns: 1fr; gap: 22px; } }

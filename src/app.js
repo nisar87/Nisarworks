@@ -31,6 +31,11 @@
     }, { passive: true });
   }
 
+  // Looping previews stay still for people who asked for less motion, and get play controls instead.
+  document.querySelectorAll('video.loop').forEach(function (v) {
+    if (calm) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; }
+  });
+
   // Product filter on the collection page.
   var buttons = document.querySelectorAll('.filters button');
   var cards = document.querySelectorAll('#collection .card');
