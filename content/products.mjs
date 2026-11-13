@@ -63,7 +63,7 @@ export const products = [
           { title: 'It tells you when merging cannot help', text: 'If two lines leave through the same public address, NetMerge says so.' },
         ] },
       { type: 'aside', eyebrow: 'A separate product', title: 'On a phone? There is NetMerge for Android.',
-        body: 'It is its own app with its own engine: Wi-Fi and mobile data at the same time. It is in testing.',
+        body: 'It is its own app with its own engine: Wi-Fi and mobile data at the same time. It is in beta.',
         link: { label: 'See NetMerge for Android', href: '/products/netmerge-android/' } },
       { type: 'limits', title: 'Honest limits', items: [
           'Two lines from the same provider usually cannot add speed.',
@@ -89,9 +89,9 @@ export const products = [
     category: 'Networking',
     platforms: ['Android'],
     platformNote: 'Android 10 and newer',
-    status: { kind: 'testing', label: 'Testing' },
-    version: '0.1.0',
-    versionFixed: true,
+    status: { kind: 'beta', label: 'Beta' },
+    version: '0.2.0-beta.2',
+    prerelease: true,
     featured: true,
     repo: 'netmerge-android',
     accent: '#8ab4ff',
@@ -100,14 +100,14 @@ export const products = [
     cover: { phones: ['home-merging', 'home-networks-dark', 'speed-test'], alt: 'NetMerge for Android on a phone: the combined speed gauge, live speed per network, and the speed test.' },
     hero: 'split',
     actions: [
-      { label: 'Get a test build', href: gh + 'netmerge-android/releases/tag/test-build', kind: 'download' },
+      { label: 'Download the beta', href: gh + 'netmerge-android/releases', kind: 'download' },
       { label: 'Source on GitHub', href: gh + 'netmerge-android' },
     ],
     sections: [
       { type: 'problem', eyebrow: 'The problem', title: 'Your phone has two ways online and uses one.',
         body: [
           'When Wi-Fi is connected, Android leaves mobile data idle, even when the Wi-Fi is slow or about to drop.',
-          'NetMerge for Android runs a VPN on the phone itself that sees every app\'s traffic. Each new connection goes out over Wi-Fi or mobile data, and the faster network gets more of them. Nothing is sent through a server of mine.',
+          'NetMerge for Android runs a VPN on the phone itself that sees every app\'s traffic. Each new connection goes out over Wi-Fi or mobile data, and the faster network gets more of them. Your traffic is not sent through a server of mine.',
         ] },
       { type: 'explainer', title: 'What it can and cannot do', panels: [
           { title: 'Apps that open many connections', good: true, conns: ['a', 'a', 'a', 'b', 'a', 'a', 'a', 'b'],
@@ -150,7 +150,8 @@ export const products = [
           { title: 'A battery guard', text: 'Merging pauses at a battery level you choose and starts again by itself once the phone has charged. Apps keep the normal network meanwhile.' },
           { title: 'Leave apps out', text: 'For apps that do not work with a VPN.' },
           { title: 'Starts by itself', text: 'After a restart, with Android\'s Always-on VPN setting. There is also a quick settings tile and a notification with the live speed.' },
-          { title: 'Nothing leaves the phone', text: 'Except your own traffic. No account, no server of mine, no tracking.' },
+          { title: 'Tells you about updates', text: 'NetMerge says when a newer version is out. You can also check under Settings, About.' },
+          { title: 'Your traffic is yours', text: 'It goes straight out on your own networks, never through a server of mine. No account and no ads.' },
         ] },
       { type: 'features', layout: 'rows', title: 'How it has been tested', items: [
           { title: 'On my own phone', text: 'A Galaxy S26 Ultra on Android 17, with real Wi-Fi and real mobile data. Every feature was run, including a restart with Always-on VPN, 20 fast starts and stops, and a 3-hour session. All pass after the fixes.' },
@@ -159,21 +160,27 @@ export const products = [
           { title: 'On every change', text: 'Android 14 and 15 emulators with Wi-Fi and mobile data run the full set of checks.' },
           { title: 'What the tests caught', text: 'Nine bugs so far, all fixed. One left the phone with no internet after a restart, and one stopped websites opening when mobile data was very slow.' },
         ] },
+      { type: 'install', title: 'How to install the beta', items: [
+          'On the phone, open the download page and pick the file ending in arm64-v8a.apk. It suits most phones. The one named universal works on any.',
+          'When Android asks, allow your browser to install apps.',
+          'If you installed a test build before, uninstall it first. The beta is signed with a different key.',
+        ] },
       { type: 'features', layout: 'rows', title: 'What it asks of your phone', items: [
           { title: 'It runs as a VPN', text: 'That is how one app can see and steer every other app\'s traffic. The VPN lives on the phone itself. Your traffic is not sent through a server of mine.' },
           { title: 'One VPN at a time', text: 'Android allows a single VPN to be active, so NetMerge cannot run together with another VPN app.' },
           { title: 'Permissions', text: 'Network access and network state, a notification while merging is on, and the VPN permission you approve on first start.' },
+          { title: 'Diagnostics, on by default', text: 'To find bugs on other people\'s phones, NetMerge sends a small report every 6 hours or so, on Wi-Fi only: its own event log, its settings, the phone\'s make, model and Android version, and a random number made at install. After a crash it also sends where it crashed. You can switch this off on the welcome screen or in Settings.' },
+          { title: 'Never sent', text: 'The sites or apps you use, addresses, your traffic, your name or account, or any phone identifier.' },
           { title: 'What it does not ask for', text: 'No location, no contacts, no files, no account.' },
         ] },
       { type: 'limits', title: 'Honest limits', items: [
-          'It is in testing. Version 0.1.0 is a test build, not a release, and not meant for daily use yet.',
-          'The downloadable test build is from 12 November. The roaming setting, the battery guard and the fixes for slow mobile data are in work that has not been merged into it yet.',
+          'It is a beta, the first version meant for other people\'s phones. Expect rough edges.',
+          'It is not on Google Play yet. You install it from the download page.',
           'Merging has been measured on one phone only. On the other phones, only starting, the VPN and opening pages were checked.',
           'Not tested yet: roaming abroad on a real phone, a Wi-Fi network that needs a login page, overnight battery limits on Samsung phones, and phones belonging to anyone but me.',
           'Merging uses mobile data, and keeping mobile data awake costs battery. How much it costs has not been measured properly yet.',
           'If Android\'s Private DNS is set to a fixed provider, ad blocking cannot work.',
           'Two downloads in the 3-hour session stalled, for 25 and 7 seconds. It has not happened again and I cannot explain it yet.',
-          'Test builds are signed with a public test key. A release will use a private one.',
         ] },
       { type: 'compat', title: 'What you need', rows: [
           ['Runs on', 'Android 10 and newer'],
@@ -454,7 +461,7 @@ export const products = [
 
 // Small things in progress that do not have their own page yet.
 export const lab = [
-  { name: 'More phones for NetMerge for Android', text: 'So far it has only run on my own phone and in a test lab. Next comes a closed test on other people\'s phones.', href: '/products/netmerge-android/' },
+  { name: 'More phones for NetMerge for Android', text: 'The beta is out. So far it has only run on my own phone and in a test lab, so reports from other phones are what it needs next.', href: '/products/netmerge-android/' },
   { name: 'A lighter engine for NetMerge', text: 'NetMerge carries its own smaller network engine. You can try it under Settings while the proven one stays the default.', href: '/products/netmerge/' },
   { name: 'A final name for Pullwell', text: '"Pullwell" is a working name, waiting on a trademark check.', href: '/products/pullwell/' },
 ];
