@@ -101,7 +101,7 @@ const stage = (p) => {
 const cover = (p, opts = {}) => {
   if (p.cover.src) return frame(p.cover, { title: p.name, ...opts });
   if (p.cover.wall) return wall(p.cover.wall, 'wall-cover');
-  if (p.cover.phones) return `<div class="phones" role="img" aria-label="${esc(p.cover.alt)}">${p.cover.phones.map((n) => `<img src="${media(`${p.slug}/${n}.webp`)}" width="540" height="1070" alt="" ${opts.eager ? '' : 'loading="lazy"'}>`).join('')}</div>`;
+  if (p.cover.phones) return `<div class="phones" role="img" aria-label="${esc(p.cover.alt)}">${p.cover.phones.map((n) => `<span class="device"><img src="${media(`${p.slug}/${n}.webp`)}" width="540" height="1070" alt="" ${opts.eager ? '' : 'loading="lazy"'}></span>`).join('')}</div>`;
   return art[p.cover.art];
 };
 
@@ -200,7 +200,7 @@ const sec = {
     <div class="g-nav" hidden><button type="button" class="g-prev" aria-label="Previous screenshot">${arrow}</button><button type="button" class="g-next" aria-label="Next screenshot">${arrow}</button></div>
   </div>
   <div class="g-track${s.numbered ? ' g-numbered' : ''}" tabindex="0" role="region" aria-label="${esc(p.name)} screenshots. Scroll sideways for more.">
-    ${s.items.map((it) => `<div class="g-item${it.phone ? ' g-phone' : it.w < 700 ? (it.w < 320 ? ' g-tiny' : ' g-small') : ''}">${it.phone ? `<figure class="phone"><a class="zoom" href="${media(it.src)}" data-caption="${esc(it.caption)}" aria-label="Enlarge: ${esc(it.alt)}"><img src="${media(it.src)}" width="${it.w}" height="${it.h}" alt="${esc(it.alt)}" loading="lazy"></a></figure>` : frame(it, { title: p.name, zoom: true, sizes: '(max-width: 620px) 84vw, 900px' })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
+    ${s.items.map((it) => `<div class="g-item${it.phone ? ' g-phone' : it.w < 700 ? (it.w < 320 ? ' g-tiny' : ' g-small') : ''}">${it.phone ? `<figure class="phone device"><a class="zoom" href="${media(it.src)}" data-caption="${esc(it.caption)}" aria-label="Enlarge: ${esc(it.alt)}"><img src="${media(it.src)}" width="${it.w}" height="${it.h}" alt="${esc(it.alt)}" loading="lazy"></a></figure>` : frame(it, { title: p.name, zoom: true, sizes: '(max-width: 620px) 84vw, 900px' })}<p class="cap">${esc(it.caption)}</p></div>`).join('')}
   </div>
   <div class="g-progress" aria-hidden="true"><i></i></div>
   ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
@@ -209,7 +209,7 @@ const sec = {
   wall: (s) => `
 <section class="s reveal">
   <h2 class="h2">${esc(s.title)}</h2>
-  <ul class="wall wall-full">${s.items.map(([f, n]) => `<li><img src="${media(`ai-cv-studio/${f}.webp`)}" width="397" height="562" alt="CV template preview: ${esc(n)}, with sample data." loading="lazy" decoding="async"><span>${esc(n)}</span></li>`).join('')}</ul>
+  <ul class="wall wall-full">${s.items.map(([f, n]) => `<li><a class="zoom" href="${media(`ai-cv-studio/${f}.webp`)}" data-caption="${esc(n)}. A template preview with sample data." aria-label="Enlarge the ${esc(n)} template"><img src="${media(`ai-cv-studio/${f}.webp`)}" width="397" height="562" alt="CV template preview: ${esc(n)}, with sample data." loading="lazy"></a><span>${esc(n)}</span></li>`).join('')}</ul>
   ${s.note ? `<p class="note">${esc(s.note)}</p>` : ''}
 </section>`,
 
@@ -253,6 +253,37 @@ const sec = {
 <section class="s reveal">
   <h2 class="h2">${esc(s.title)}</h2>
   <ol class="flow">${s.steps.map((st) => `<li${st.key ? ' class="key"' : ''}><h3>${esc(st.name)}</h3><p>${esc(st.text)}</p></li>`).join('')}</ol>
+</section>`,
+
+  segments: (s) => `
+<section class="s reveal seg">
+  <h2 class="h2">${esc(s.title)}</h2>
+  <div class="seg-grid">
+    <div class="seg-art" role="img" aria-label="Diagram: a file downloads in ${s.parts.length} parts at once, stops when the connection is lost, then carries on from where each part stopped until the whole file is checked.">
+      <div class="seg-top"><span class="seg-name">${esc(s.file)}</span><span class="seg-state"><i>downloading</i><i>connection lost</i><i>resuming</i><i>size and checksum match</i></span></div>
+      <div class="seg-bar">${s.parts.map((a, i) => `<span><b style="--a:${a};--i:${i}"></b></span>`).join('')}</div>
+      <div class="seg-foot"><span>${s.parts.length} parts, ${s.parts.length} connections</span><span>each part keeps what it already has</span></div>
+    </div>
+    <ol class="steps">${s.items.map((t) => `<li>${esc(t)}</li>`).join('')}</ol>
+  </div>
+  <p class="note">A diagram of how it works, not a screenshot.</p>
+</section>`,
+
+  specimen: (s) => `
+<section class="s reveal spec">
+  <p class="eyebrow">${esc(s.eyebrow)}</p>
+  <p class="spec-line">${s.before}</p>
+  <ul class="spec-fixes">${s.fixes.map((f) => `<li class="${f.kind}"><s>${esc(f.from)}</s><b>${esc(f.to)}</b><span>${esc(f.why)}</span></li>`).join('')}</ul>
+  <p class="spec-line spec-after">${s.after}</p>
+  <p class="note">${esc(s.note)}</p>
+</section>`,
+
+  transcript: (s) => `
+<section class="s reveal talk">
+  <div class="s-head"><h2 class="h2">${esc(s.title)}</h2><p class="talk-key" aria-hidden="true"><i class="t-h"></i>Hearing you<i class="t-t"></i>AI thinking<i class="t-d"></i>Doing it</p></div>
+  <ol>${s.items.map((t) => `<li><p class="t-said"><span>You said</span>${esc(t.said)}</p><p class="t-did">${esc(t.did)}</p>
+    <p class="t-meta"><span class="t-bar" aria-hidden="true"><i class="t-h" style="flex:${t.bar[0]}"></i><i class="t-t" style="flex:${t.bar[1]}"></i><i class="t-d" style="flex:${t.bar[2]}"></i></span><b>${esc(t.time)}</b> from command to done<em>${esc(t.route)}</em></p></li>`).join('')}</ol>
+  <p class="note">${esc(s.note)}</p>
 </section>`,
 
   measured: (s) => {
@@ -323,6 +354,17 @@ const sec = {
 </section>`,
 };
 
+// "Honest limits" and "What you need" sit side by side as one sheet.
+const renderSections = (p) => {
+  const out = [];
+  for (let i = 0; i < p.sections.length; i++) {
+    const s = p.sections[i], n = p.sections[i + 1];
+    if (s.type === 'limits' && n && n.type === 'compat') { out.push(`<div class="sheet-band"><div class="sheet">${sec.limits(s, p)}${sec.compat(n, p)}</div></div>`); i++; }
+    else out.push(sec[s.type](s, p));
+  }
+  return out.join('');
+};
+
 const actions = (p) => `<div class="actions">${p.actions.map((a, i) =>
   `<a class="btn${i === 0 ? ' btn-p' : ''}" href="${a.href}">${icons[a.kind] || ''}${esc(a.label)}</a>`).join('')}</div>`;
 
@@ -352,7 +394,7 @@ const productPage = (p) => {
     </div>
     <div class="p-hero-art">${cover(p, { eager: true })}</div>
   </header>
-  ${p.sections.map((s) => sec[s.type](s, p)).join('')}
+  ${renderSections(p)}
   <section class="s s-cta reveal">
     <h2 class="big">${p.status.kind === 'live' ? 'Try it now.' : 'Give it a try.'}</h2>
     ${actions(p)}
@@ -450,7 +492,7 @@ const home = () => page({
 </section>
 
 <section class="s s-person reveal">
-  <img src="${media(site.portrait.src)}" width="${site.portrait.w}" height="${site.portrait.h}" alt="${esc(site.portrait.alt)}" loading="lazy" decoding="async">
+  <a class="arch arch-s" href="/about/" aria-label="About ${site.creator}"><img src="${media(site.portrait.src)}" width="${site.portrait.w}" height="${site.portrait.h}" alt="${esc(site.portrait.alt)}" loading="lazy"></a>
   <div>
     <p class="eyebrow">The person behind them</p>
     <h2 class="big">I'm ${site.creator}. I build the tools I wish already existed.</h2>

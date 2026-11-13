@@ -1,7 +1,7 @@
 // Every product on the site is one entry in this list.
 // To add a product: copy an entry, change its fields, put its images in media/<slug>/, run `node src/build.mjs`.
 // Section types a product page can use, in any order:
-//   problem, explainer, flow, features, figures, measured, gallery, wall, say, routes, modes, video, install, limits, compat, aside
+//   problem, explainer, segments, specimen, transcript, flow, features, figures, measured, gallery, wall, say, routes, modes, video, install, limits, compat, aside
 // Status kinds: released | early | beta | live | testing | lab
 
 const gh = 'https://github.com/nisar87/';
@@ -202,7 +202,7 @@ export const products = [
           'The connection drops at 94%. The PC restarts overnight. The file arrives a few bytes short and nothing tells you.',
           'Pullwell picks up where it stopped after a crash, a restart or a lost connection. It never calls a file finished unless the size is right, and the checksum too when one is known.',
         ] },
-      { type: 'install', title: 'When a download is interrupted', items: [
+      { type: 'segments', title: 'When a download is interrupted', file: 'ubuntu-26.04-desktop-amd64.iso', parts: [0.82, 0.46, 0.67, 0.31, 0.74, 0.52, 0.38, 0.6], items: [
           'The connection drops, the PC restarts, or the program crashes. The unfinished download stays in your list.',
           'When Pullwell is running again and the connection is back, it carries on from where it stopped.',
           'The file is marked finished only when its size is right, and its checksum too when one is known.',
@@ -325,6 +325,14 @@ export const products = [
           'Most writing assistants send what you type to a server. That is a lot of trust for a spelling check.',
           'ClearWrite does the checking on your own computer by default. It needs no account, no key and no connection. Help from an AI service is there if you decide to switch it on, and only then.',
         ] },
+      { type: 'specimen', eyebrow: 'A real correction',
+        before: 'I <u class="sp">recieve</u> the file yesterday and it <u class="gr">were</u> to large.',
+        after: 'I <mark>receive</mark> the file yesterday and it <mark>was</mark> to large.',
+        fixes: [
+          { from: 'recieve', to: 'receive', why: 'Possible spelling mistake.', kind: 'sp' },
+          { from: 'were', to: 'was', why: 'Use was with it.', kind: 'gr' },
+        ],
+        note: 'The sentence and both suggestions come from ClearWrite\'s own panel, shown in the first screenshot below. Each fix waits for you to accept it. Notice that "to large" was left alone: the on-device check catches common mistakes, not all of them.' },
       { type: 'gallery', title: 'A look inside', note: 'Screenshots of the current beta.', items: [
           { src: 'clearwrite/panel-light.webp', w: 380, h: 560, alt: 'ClearWrite side panel showing a sentence with two suggested fixes.', caption: 'The panel: your text, the fix, and a reason for each change.' },
           { src: 'clearwrite/home-dark.webp', w: 1280, h: 860, alt: 'ClearWrite home page in dark mode.', caption: 'Home. What was fixed today and over the last 30 days.' },
@@ -384,12 +392,11 @@ export const products = [
       { label: 'Source on GitHub', href: gh + 'Vox' },
     ],
     sections: [
-      { type: 'say', title: 'Things you can say', items: [
-          'Open YouTube in Chrome and search for lofi beats',
-          'Create a folder on the desktop and move everything not opened in 20 days into it',
-          'How much disk space is left?',
-          'Open Notepad and keep writing what I say',
-          'Undo that',
+      { type: 'transcript', title: 'Said, and done', note: 'These four exchanges are from the Talk screen in the screenshot further down.', items: [
+          { said: 'Hi Vox, open Notepad++ and write a few lines about education in a new tab.', did: 'Written in Notepad++.', time: '780 ms', route: 'Live conversation', bar: [0, 100, 0] },
+          { said: 'I want to see Pakistan vs Sri Lanka match highlights on YouTube.', did: 'Searching YouTube for pakistan vs sri lanka match highlights.', time: '1.4 s', route: 'Instant, no AI needed', bar: [95, 0, 5] },
+          { said: 'Clear out desktop things older than 20 days into archive.', did: 'Moved 14 items into Archive. I went by the last time each was opened or changed.', time: '1.6 s', route: 'Learned earlier, no AI needed', bar: [95, 0, 5] },
+          { said: 'How much disk space is left?', did: 'About 260 gigabytes are free on the D drive and 40 on C.', time: '2.8 s', route: 'AI thought for 900 ms', bar: [50, 35, 15] },
         ] },
       { type: 'problem', eyebrow: 'The idea', title: 'A computer that listens like a person would.',
         body: [

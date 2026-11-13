@@ -93,7 +93,7 @@
     zooms.forEach(function (a) {
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        var group = a.closest('.g-track');
+        var group = a.closest('.g-track, .wall-full');
         set = group ? [].slice.call(group.querySelectorAll('a.zoom')) : [a];
         opener = a;
         show(set.indexOf(a));
